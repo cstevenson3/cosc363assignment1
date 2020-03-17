@@ -1,4 +1,5 @@
 .project
+.settings
 .cproject
 .DS_Store
 *.exe

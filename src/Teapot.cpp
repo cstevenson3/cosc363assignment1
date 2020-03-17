@@ -5,8 +5,11 @@
 //  See Lab01.pdf for details
 //  ========================================================================
 
+#include <iostream>
+#include <string>
 #include <cmath>
 #include <GL/freeglut.h>
+#include "keyboard.h"
 
 
 //--Draws a grid of lines on the floor plane -------------------------------
@@ -66,6 +69,16 @@ void initialize(void)
 	glFrustum(-5.0, 5.0, -5.0, 5.0, 10.0, 1000.0);   //Camera Frustum
 }
 
+void exampleKeyboardCallback(int key) {
+	std::cout << "Key: " + std::to_string(key) << std::endl;
+	switch(key) {
+	case KEY_UP:
+		std::cout << "UP" << std::endl;
+		break;
+	default:
+		break;
+	}
+}
 
 //  ------- Main: Initialize glut window and register call backs -------
 int main(int argc, char **argv) 
@@ -75,6 +88,8 @@ int main(int argc, char **argv)
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Teapot");
+	initKeyboard();
+	addKeyboardCallback(exampleKeyboardCallback);
 	initialize();
 	glutDisplayFunc(display);
 	glutMainLoop();
