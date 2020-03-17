@@ -1,5 +1,13 @@
+MAKE_COMMAND := 
+MAKEFILE_NAME := 
+
 ifeq ($(OS),Windows_NT)
-	make -f MakefileWindows
+	MAKE_COMMAND += mingw32-make
+	MAKEFILE_NAME += MakefileWindows
 else
-	make -f MakefileUnix
+	MAKE_COMMAND += make
+	MAKEFILE_NAME += MakefileUnix
 endif
+
+dummy.recipe:
+	$(MAKE_COMMAND) -f $(MAKEFILE_NAME)
