@@ -2,3 +2,4 @@
 .cproject
 .DS_Store
 *.exe
+*.out

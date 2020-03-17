@@ -2,8 +2,7 @@ SRC_DIR := ./src
 OBJ_DIR := ./obj
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
-LDFLAGS := -L.\libraries\lib -I.\libraries\include -lfreeglut -lopengl32 -lgdi32 -lglu32
+LDFLAGS := -L/usr/local/Cellar/freeglut/3.2.1/lib -I/usr/local/Cellar/freeglut/3.2.1/include -lglut -framework OpenGL
 
-assignment1.exe: $(SRC_FILES)
-	echo $(SRC_FILES)
+assignment1.out: $(SRC_FILES)
 	g++ -o $@ $^ $(LDFLAGS)
