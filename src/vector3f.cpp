@@ -47,3 +47,9 @@ float Vector3f::f2() const{
 float Vector3f::f3() const{
 	return this->z;
 }
+
+std::ostream& operator<<(std::ostream &str, const Vector3f& v) {
+	return str << "f1: " + std::to_string(v.f1())\
+	   + ", f2: " + std::to_string(v.f2())\
+	   + ", f3: " + std::to_string(v.f3());
+}

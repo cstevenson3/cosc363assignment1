@@ -33,7 +33,7 @@ void Camera::deltaRotation(Vector3f deltaRotation) {
 }
 
 Vector3f Camera::lookAtReference() {
-	return this->pos + Vector3f(0, 0, 1); //TODO
+	return this->pos + Vector3f(0, 0, -1); //TODO
 }
 
 Vector3f Camera::lookAtUp() {
