@@ -12,6 +12,7 @@
 #include "keyboard.h"
 #include "camera.h"
 #include "graphics.h"
+#include "museum_walls.h"
 
 void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
@@ -32,6 +33,9 @@ void cameraKeyboardCallback(int key) {
 
 void updateFunction(int te)
 {
+	//update objects
+
+
 	glutPostRedisplay();
 	glutTimerFunc(10, updateFunction, 1);
 }
@@ -40,10 +44,12 @@ void updateFunction(int te)
 int main(int argc, char **argv) 
 {
 	initGraphics(argc, argv);
-	camera()->deltaPosition(Vector3f(0, 0, 12));
+	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
 	addKeyboardCallback(keyboardLoggingCallback);
 	addKeyboardCallback(cameraKeyboardCallback);
+	MuseumWalls museumWalls = MuseumWalls();
+	scene()->addDrawable(museumWalls);
 
 	glutTimerFunc(10, updateFunction, 1);
 	graphicsMainLoop();

@@ -14,6 +14,7 @@
 #include "draw_objects.h"
 
 Camera camera_;
+Scene scene_;
 
 //--Draws a grid of lines on the floor plane -------------------------------
 void drawFloor()
@@ -23,10 +24,10 @@ void drawFloor()
 	for(int i = -50; i <= 50; i ++)
 	{
 		glBegin(GL_LINES);			//A set of grid lines on the xz-plane
-			glVertex3f(-50, -0.75, i);
-			glVertex3f(50, -0.75, i);
-			glVertex3f(i, -0.75, -50);
-			glVertex3f(i, -0.75, 50);
+			glVertex3f(-50, 0.0, i);
+			glVertex3f(50, 0.0, i);
+			glVertex3f(i, 0.0, -50);
+			glVertex3f(i, 0.0, 50);
 		glEnd();
 	}
 }
@@ -42,9 +43,6 @@ void display(void)
 	Vector3f cameraPos = camera_.position();
 	Vector3f cameraRef = camera_.lookAtReference();
 	Vector3f cameraUp = camera_.lookAtUp();
-
-	//std::cout << cameraPos << std::endl;
-
 	gluLookAt(cameraPos.f1(), cameraPos.f2(), cameraPos.f3(), cameraRef.f1(), cameraRef.f2(), cameraRef.f3(), cameraUp.f1(), cameraUp.f2(), cameraUp.f3());  //Camera position and orientation
 
 	glLightfv(GL_LIGHT0,GL_POSITION, lpos);   //Set light position
@@ -57,8 +55,7 @@ void display(void)
     glColor3f(0.0, 1.0, 1.0);
     glutSolidTeapot(1.0);
 
-    //drawWall(Vector3f(3.0, 1.0, 1.0), Vector3f(1.0, 0.0, 0.0));
-    drawMuseumWalls(6, 5.0, 5.0, 1.0, Vector3f(1.0, 0.0, 0.0));
+    scene_.draw();
 
 	glFlush();
 }
@@ -70,11 +67,11 @@ void initGraphics(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_DEPTH);
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("Assignment 1 Cameron Stevenson");
+	glutCreateWindow("COSC363 Assignment 1 57052612 Cameron Stevenson");
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	glEnable(GL_LIGHTING);		//Enable OpenGL states
+	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_DEPTH_TEST);
@@ -82,7 +79,7 @@ void initGraphics(int argc, char **argv) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(-5.0, 5.0, -5.0, 5.0, 10.0, 1000.0);   //Camera Frustum
+	glFrustum(-0.1, 0.1, -0.1, 0.1, 0.1, 100.0);
 
 	glutDisplayFunc(display);
 }
@@ -93,4 +90,8 @@ void graphicsMainLoop() {
 
 Camera* camera() {
 	return &camera_;
+}
+
+Scene* scene() {
+	return &scene_;
 }

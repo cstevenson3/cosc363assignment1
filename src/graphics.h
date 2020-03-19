@@ -9,10 +9,12 @@
 #define SRC_GRAPHICS_H_
 
 #include "camera.h"
+#include "scene.h"
 
 void initGraphics(int argc, char **argv);
 void graphicsMainLoop();
 Camera* camera();
+Scene* scene();
 void setCamera(Camera& camera);
 
 #endif /* SRC_GRAPHICS_H_ */

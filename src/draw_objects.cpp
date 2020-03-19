@@ -25,7 +25,7 @@ void drawMuseumWalls(float numWalls, float radius, float height, float thickness
 		float rotation = angle * i;
 		glPushMatrix();
 			glRotatef(rotation, 0.0, 1.0, 0.0); // rotate wall around to a side of the building
-			glTranslatef(0.0, 0.0, radius - thickness / 2.0); // move wall from centre of building to outside
+			glTranslatef(0.0, height / 2.0, radius - thickness / 2.0); // move outside of wall to building edge
 			drawWall(Vector3f(2 * radius * math::tan(angle / 2.0), height, thickness), color);
 		glPopMatrix();
 	}
