@@ -16,6 +16,10 @@ float math::cos(float degrees) {
 	return std::cos(degreesToRadians(degrees));
 }
 
+float math::tan(float degrees) {
+	return std::tan(degreesToRadians(degrees));
+}
+
 float math::degreesToRadians(float degrees) {
 	return degrees * 3.1415926 / 180;
 }

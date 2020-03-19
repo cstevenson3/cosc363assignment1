@@ -22,6 +22,9 @@ void cameraKeyboardCallback(int key) {
 	case KEY_UP:
 		camera()->deltaPosition(Vector3f(0, 0, -1.0));
 		break;
+	case KEY_DOWN:
+		camera()->deltaPosition(Vector3f(0, 0, 1.0));
+		break;
 	default:
 		break;
 	}

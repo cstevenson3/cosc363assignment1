@@ -12,6 +12,7 @@ namespace math {
 
 	float sin(float degrees);
 	float cos(float degrees);
+	float tan(float degrees);
 
 	float degreesToRadians(float degrees);
 

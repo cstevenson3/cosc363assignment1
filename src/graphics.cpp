@@ -7,8 +7,11 @@
 
 
 #include "graphics.h"
+
 #include <iostream>
 #include <GL/freeglut.h>
+
+#include "draw_objects.h"
 
 Camera camera_;
 
@@ -53,6 +56,9 @@ void display(void)
 	glEnable(GL_DEPTH_TEST);
     glColor3f(0.0, 1.0, 1.0);
     glutSolidTeapot(1.0);
+
+    //drawWall(Vector3f(3.0, 1.0, 1.0), Vector3f(1.0, 0.0, 0.0));
+    drawMuseumWalls(6, 5.0, 5.0, 1.0, Vector3f(1.0, 0.0, 0.0));
 
 	glFlush();
 }
