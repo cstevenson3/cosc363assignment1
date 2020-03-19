@@ -1,9 +1,9 @@
-//  ========================================================================
-//  COSC363: Computer Graphics (2020);  University of Canterbury.
-//
-//  FILE NAME: Teapot.cpp
-//  See Lab01.pdf for details
-//  ========================================================================
+/*
+ * main.cpp
+ *
+ *  Created on: 17/03/2020
+ *      Author: Cameron Stevenson
+ */
 
 #include <iostream>
 #include <string>

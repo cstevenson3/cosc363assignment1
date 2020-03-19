@@ -64,9 +64,9 @@ void initGraphics(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_DEPTH);
 	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("Teapot");
+	glutCreateWindow("Assignment 1 Cameron Stevenson");
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	glEnable(GL_LIGHTING);		//Enable OpenGL states
 	glEnable(GL_LIGHT0);
