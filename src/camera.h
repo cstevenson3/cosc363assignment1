@@ -16,6 +16,9 @@ class Camera {
 		Camera();
 		Camera(MODE mode);
 
+		MODE mode();
+		void setMode(MODE mode);
+
 		//right-hand coordinates
 		Vector3f position();
 		//anticlockwise looking in negative direction of axis, right-hand coordinates
@@ -28,11 +31,16 @@ class Camera {
 
 		Vector3f lookAtReference();
 		Vector3f lookAtUp();
+
+		/* consider keys pressed etc. and update position, rotation etc. */
+		void update();
 	private:
-		MODE mode;
+		MODE _mode;
 
 		Vector3f pos;
 		Vector3f rot;
+
+		long int lastTime;
 };
 
 #endif /* SRC_CAMERA_H_ */

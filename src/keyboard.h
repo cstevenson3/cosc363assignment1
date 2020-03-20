@@ -19,5 +19,6 @@ enum KEYS {
 
 void addKeyboardCallback(void (*callback) (int key));
 void initKeyboard();
+bool isKeyDown(KEYS key);
 
 #endif /* SRC_KEYBOARD_H_ */

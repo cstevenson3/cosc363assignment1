@@ -18,23 +18,12 @@ void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
 }
 
-void cameraKeyboardCallback(int key) {
-	switch(key) {
-	case KEY_UP:
-		camera()->deltaPosition(Vector3f(0, 0, -1.0));
-		break;
-	case KEY_DOWN:
-		camera()->deltaPosition(Vector3f(0, 0, 1.0));
-		break;
-	default:
-		break;
-	}
-}
-
 void updateFunction(int te)
 {
+
 	//update objects
 
+	camera()->update();
 
 	glutPostRedisplay();
 	glutTimerFunc(10, updateFunction, 1);
@@ -44,10 +33,10 @@ void updateFunction(int te)
 int main(int argc, char **argv) 
 {
 	initGraphics(argc, argv);
+	camera()->setMode(Camera::DOOM);
 	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
-	addKeyboardCallback(keyboardLoggingCallback);
-	addKeyboardCallback(cameraKeyboardCallback);
+	//addKeyboardCallback(keyboardLoggingCallback);
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 

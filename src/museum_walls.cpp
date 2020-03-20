@@ -10,5 +10,5 @@
 #include "draw_objects.h"
 
 void MuseumWalls::draw() {
-	drawMuseumWalls(6, 5.0, 5.0, 1.0, Vector3f(1.0, 0.0, 0.0));
+	drawMuseumWalls(6, 5.0, 5.0, 1.0, Vector3f(0.3, 0.3, 0.3));
 }

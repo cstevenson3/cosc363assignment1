@@ -6,14 +6,27 @@
  */
 
 #include "camera.h"
+
 #include "math.h"
+#include "our_time.h"
+#include "keyboard.h"
 
 Camera::Camera () {
-	this->mode = Camera::FREECAM;
+	this->_mode = Camera::FREECAM;
+	lastTime = our_time::unixTimeMS();
 }
 
 Camera::Camera (MODE mode) {
-	this->mode = mode;
+	this->_mode = mode;
+	lastTime = our_time::unixTimeMS();
+}
+
+Camera::MODE Camera::mode() {
+	return _mode;
+}
+
+void Camera::setMode(Camera::MODE mode) {
+	_mode = mode;
 }
 
 Vector3f Camera::position() {
@@ -38,4 +51,17 @@ Vector3f Camera::lookAtReference() {
 
 Vector3f Camera::lookAtUp() {
 	return Vector3f(0, 1, 0); //TODO
+}
+
+void Camera::update() {
+	long int currentTime = our_time::unixTimeMS();
+	switch(_mode) {
+	case DOOM:
+		if(isKeyDown(KEY_UP)) {
+			deltaPosition(Vector3f(0, 0, -0.05));
+		}
+		if(isKeyDown(KEY_DOWN)) {
+			deltaPosition(Vector3f(0, 0, 0.05));
+		}
+	}
 }
