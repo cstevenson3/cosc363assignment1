@@ -13,6 +13,7 @@
 #include "camera.h"
 #include "graphics.h"
 #include "museum_walls.h"
+#include "floor_wireframe.h"
 
 void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
@@ -37,8 +38,13 @@ int main(int argc, char **argv)
 	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
 	//addKeyboardCallback(keyboardLoggingCallback);
+
+	FloorWireframe floorWireframe = FloorWireframe();
+	scene()->addDrawable(floorWireframe);
+
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
+
 
 	glutTimerFunc(10, updateFunction, 1);
 	graphicsMainLoop();

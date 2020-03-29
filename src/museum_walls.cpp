@@ -10,5 +10,10 @@
 #include "draw_objects.h"
 
 void MuseumWalls::draw() {
-	drawMuseumWalls(6, 5.0, 5.0, 1.0, Vector3f(0.3, 0.3, 0.3));
+	int numWalls = 6;
+	float radius = 5.0;
+	float height = 3.5;
+	float wallThickness = 0.2;
+	Vector3f color = Vector3f(0.3, 0.3, 0.3);
+	drawMuseumWalls(numWalls, radius, height, wallThickness, color);
 }

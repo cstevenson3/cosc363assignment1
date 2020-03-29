@@ -15,6 +15,6 @@
  */
 void drawWall(Vector3f dimensions, Vector3f color);
 void drawMuseumWalls(float numWalls, float radius, float height, float thickness, Vector3f color);
-
+void drawFloorWireframe();
 
 #endif /* SRC_DRAW_OBJECTS_H_ */

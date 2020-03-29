@@ -10,6 +10,7 @@
 #include "math.h"
 #include "our_time.h"
 #include "keyboard.h"
+#include "vector4f.h"
 
 Camera::Camera () {
 	this->_mode = Camera::FREECAM;
@@ -46,11 +47,11 @@ void Camera::deltaRotation(Vector3f deltaRotation) {
 }
 
 Vector3f Camera::lookAtReference() {
-	return this->pos + Vector3f(0, 0, -1); //TODO
+	return this->pos + freecamMotionWorldspace(Vector3f(0, 0, -1));
 }
 
 Vector3f Camera::lookAtUp() {
-	return Vector3f(0, 1, 0); //TODO
+	return Vector3f(0, 1, 0); // TODO
 }
 
 void Camera::update() {
@@ -64,4 +65,26 @@ void Camera::update() {
 			deltaPosition(Vector3f(0, 0, 0.05));
 		}
 	}
+}
+
+Vector3f Camera::freecamMotionWorldspace(Vector3f motionViewspace) {
+	Matrix4f freecamMotionTransform = Camera::freecamMotionTransform();
+	return Vector3f(freecamMotionTransform * Vector4f(motionViewspace));
+}
+
+Matrix4f Camera::freecamMotionTransform() {
+	Matrix4f result = Matrix4f::identity();
+
+	float cosPitch = math::cos(rot.f1());
+	float cosYaw = math::cos(rot.f2());
+
+	float sinPitch = math::sin(rot.f1());
+	float sinYaw = math::sin(rot.f2());
+
+	result[0][0] = cosYaw;
+	result[0][2] = -sinYaw;
+	result[2][0]= sinYaw*cosPitch;
+	result[2][1]= -sinPitch;
+	result[2][2]= -cosPitch*-cosYaw;
+	return result;
 }

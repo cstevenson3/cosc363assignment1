@@ -16,22 +16,6 @@
 Camera camera_;
 Scene scene_;
 
-//--Draws a grid of lines on the floor plane -------------------------------
-void drawFloor()
-{
-	glColor3f(0., 0.5,  0.);			//Floor colour
-
-	for(int i = -50; i <= 50; i ++)
-	{
-		glBegin(GL_LINES);			//A set of grid lines on the xz-plane
-			glVertex3f(-50, 0.0, i);
-			glVertex3f(50, 0.0, i);
-			glVertex3f(i, 0.0, -50);
-			glVertex3f(i, 0.0, 50);
-		glEnd();
-	}
-}
-
 void display(void)
 {
 	float lpos[4] = {0., 10., 10., 1.0};  //light's position
@@ -47,10 +31,7 @@ void display(void)
 
 	glLightfv(GL_LIGHT0,GL_POSITION, lpos);   //Set light position
 
-	glDisable(GL_LIGHTING);			//Disable lighting when drawing floor.
-    drawFloor();
-
-	glEnable(GL_LIGHTING);			//Enable lighting when drawing the teapot
+	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
     glColor3f(0.0, 1.0, 1.0);
     glutSolidTeapot(1.0);

@@ -11,10 +11,13 @@
 #include <iostream>
 #include <string>
 
+#include "vector4f.h"
+
 class Vector3f {
 	public:
 		Vector3f();
 		Vector3f(float f1, float f2, float f3);
+		Vector3f(Vector4f vec4);
 		void delta(float deltaF1, float deltaF2, float deltaF3);
 		float f1() const;
 		float f2() const;
@@ -22,10 +25,9 @@ class Vector3f {
 		Vector3f operator + (const Vector3f& right);
 		Vector3f& operator += (const Vector3f& right);
 		friend std::ostream& operator<<(std::ostream &str, const Vector3f& v);
+		float operator[](int index);
 	private:
-		float x;
-		float y;
-		float z;
+		float _vec[3];
 };
 
 

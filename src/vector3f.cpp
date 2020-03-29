@@ -9,25 +9,31 @@
 
 
 Vector3f::Vector3f() {
-	this->x = 0.0;
-	this->y = 0.0;
-	this->z = 0.0;
+	_vec[0] = 0.0;
+	_vec[1] = 0.0;
+	_vec[2] = 0.0;
 }
 
 Vector3f::Vector3f(float f1, float f2, float f3) {
-	this->x = f1;
-	this->y = f2;
-	this->z = f3;
+	_vec[0] = f1;
+	_vec[1] = f2;
+	_vec[2] = f3;
+}
+
+Vector3f::Vector3f(Vector4f vec4) {
+	for(int i = 0; i < 3; i++) {
+		_vec[i] = vec4[i];
+	}
 }
 
 void Vector3f::delta(float deltaF1, float deltaF2, float deltaF3) {
-	this->x += deltaF1;
-	this->y += deltaF2;
-	this->z += deltaF3;
+	_vec[0] += deltaF1;
+	_vec[1] += deltaF2;
+	_vec[2] += deltaF3;
 }
 
 Vector3f Vector3f::operator + (const Vector3f &right) {
-	Vector3f result = Vector3f(this->x + right.f1(), this->y + right.f2(), this->z + right.f3());
+	Vector3f result = Vector3f(_vec[0] + right.f1(), _vec[1] + right.f2(), _vec[2] + right.f3());
 	return result;
 }
 
@@ -37,19 +43,23 @@ Vector3f& Vector3f::operator += (const Vector3f &right) {
 }
 
 float Vector3f::f1() const{
-	return this->x;
+	return _vec[0];
 }
 
 float Vector3f::f2() const{
-	return this->y;
+	return _vec[1];
 }
 
 float Vector3f::f3() const{
-	return this->z;
+	return _vec[2];
 }
 
 std::ostream& operator<<(std::ostream &str, const Vector3f& v) {
 	return str << "f1: " + std::to_string(v.f1())\
 	   + ", f2: " + std::to_string(v.f2())\
 	   + ", f3: " + std::to_string(v.f3());
+}
+
+float Vector3f::operator[](int index) {
+	return _vec[index];
 }

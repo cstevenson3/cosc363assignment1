@@ -9,6 +9,7 @@
 #define SRC_CAMERA_H_
 
 #include "vector3f.h"
+#include "matrix4f.h"
 
 class Camera {
 	public:
@@ -34,6 +35,9 @@ class Camera {
 
 		/* consider keys pressed etc. and update position, rotation etc. */
 		void update();
+
+		Vector3f freecamMotionWorldspace(Vector3f motionViewspace);
+		Matrix4f freecamMotionTransform();
 	private:
 		MODE _mode;
 
