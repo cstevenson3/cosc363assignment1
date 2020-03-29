@@ -43,3 +43,13 @@ Vector4f operator*(const Matrix4f& left, const Vector4f& right) {
 const Vector4f Matrix4f::operator[](int row) const{
 	return Vector4f(_matrix + (row * 4)); // we want this returned Vector4f to point to the original _matrix entries
 }
+
+std::ostream& operator<<(std::ostream& os, const Matrix4f& mat) {
+	for(int row = 0; row < 4; row++) {
+		for(int col = 0; col < 4; col++) {
+			os << mat._matrix[4 * row + col] << ", ";
+		}
+		os << std::endl;
+	}
+	return os;
+}

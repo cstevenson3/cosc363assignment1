@@ -47,11 +47,11 @@ void Camera::deltaRotation(Vector3f deltaRotation) {
 }
 
 Vector3f Camera::lookAtReference() {
-	return this->pos + Vector3f(0, 0, 1); //freecamMotionWorldspace(Vector3f(0, 0, 1));
+	return this->pos + freecamMotionWorldspace(Vector3f(0, 0, 1));
 }
 
 Vector3f Camera::lookAtUp() {
-	return Vector3f(0, 1, 0); // TODO
+	return Vector3f(0, 1, 0); // TODO if pitch is introduced
 }
 
 void Camera::update() {
@@ -59,17 +59,25 @@ void Camera::update() {
 	switch(_mode) {
 	case DOOM:
 		if(isKeyDown(KEY_UP)) {
-			deltaPosition(Vector3f(0, 0, -0.05));
+			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, 0.05)));
 		}
 		if(isKeyDown(KEY_DOWN)) {
-			deltaPosition(Vector3f(0, 0, 0.05));
+			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, -0.05)));
+		}
+
+		if(isKeyDown(KEY_LEFT)) {
+			deltaRotation(Vector3f(0, 2, 0));
+		}
+		if(isKeyDown(KEY_RIGHT)) {
+			deltaRotation(Vector3f(0, -2, 0));
 		}
 	}
 }
 
 Vector3f Camera::freecamMotionWorldspace(Vector3f motionViewspace) {
 	Matrix4f freecamMotionTransform = Camera::freecamMotionTransform();
-	return Vector3f(freecamMotionTransform * Vector4f(motionViewspace));
+	Vector3f freecamMotionWorldspace = Vector3f(freecamMotionTransform * Vector4f(motionViewspace));
+	return freecamMotionWorldspace;
 }
 
 Matrix4f Camera::freecamMotionTransform() {
@@ -83,8 +91,7 @@ Matrix4f Camera::freecamMotionTransform() {
 
 	result[0][0] = cosYaw;
 	result[0][2] = -sinYaw;
-	result[2][0] = sinYaw*cosPitch;
-	result[2][1] = -sinPitch;
-	result[2][2] = -cosPitch*-cosYaw;
+	result[2][0] = -sinYaw;//*cosPitch;
+	result[2][2] = -cosYaw;//*cosPitch
 	return result;
 }

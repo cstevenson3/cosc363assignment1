@@ -49,4 +49,12 @@ const float Vector4f::operator*(const Vector4f& right) const{
 	for(int i = 0; i < 4; i++) {
 		result += _vec[i] * right[i];
 	}
+	return result;
+}
+
+std::ostream& operator<<(std::ostream& os, const Vector4f& vec) {
+	for(int i = 0; i < 4; i++) {
+		os << vec._vec[i] << ", ";
+	}
+	return os;
 }
