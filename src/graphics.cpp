@@ -18,7 +18,9 @@ Scene scene_;
 
 void display(void)
 {
-	float lpos[4] = {0., 10., 10., 1.0};  //light's position
+	float l0pos[4] = {-3., 5., 0., 1.0};  //light 0's position
+	float l1pos[4] = {3., 5., 0., 1.0};  //light 1's position
+	float l1diffuse[4] = {1., 1., 1., 1.0};  //light 1's diffuse
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
@@ -29,7 +31,9 @@ void display(void)
 	Vector3f cameraUp = camera_.lookAtUp();
 	gluLookAt(cameraPos.f1(), cameraPos.f2(), cameraPos.f3(), cameraRef.f1(), cameraRef.f2(), cameraRef.f3(), cameraUp.f1(), cameraUp.f2(), cameraUp.f3());  //Camera position and orientation
 
-	glLightfv(GL_LIGHT0,GL_POSITION, lpos);   //Set light position
+	glLightfv(GL_LIGHT0, GL_POSITION, l0pos);   //Set light position
+	glLightfv(GL_LIGHT1, GL_POSITION, l1pos);   //Set light position
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, l1diffuse);   //Set light position
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
@@ -54,6 +58,7 @@ void initGraphics(int argc, char **argv) {
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
