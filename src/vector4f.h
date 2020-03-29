@@ -8,17 +8,21 @@
 #ifndef SRC_VECTOR4F_H_
 #define SRC_VECTOR4F_H_
 
+#include "float_proxy.h"
+
 class Vector3f;
 
 class Vector4f {
 	public:
 		Vector4f();
+		~Vector4f();
 		Vector4f(float* array);
 		Vector4f(Vector3f& vec3);
-		float operator[](int index);
-		float operator*(Vector4f& right);
+		FloatProxy operator[](int index) const;
+		const float operator*(const Vector4f& right) const;
 	private:
-		float _vec[4];
+		bool deleteVec = true;
+		float* _vec;
 };
 
 #endif /* SRC_VECTOR4F_H_ */

@@ -60,6 +60,6 @@ std::ostream& operator<<(std::ostream &str, const Vector3f& v) {
 	   + ", f3: " + std::to_string(v.f3());
 }
 
-float Vector3f::operator[](int index) {
+float& Vector3f::operator[](int index) {
 	return _vec[index];
 }

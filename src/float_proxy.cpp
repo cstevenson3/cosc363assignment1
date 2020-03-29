@@ -11,7 +11,12 @@ FloatProxy::FloatProxy(float* pointer) {
 	_pointer = pointer;
 }
 
-FloatProxy& FloatProxy::operator=(float f) {
+FloatProxy& FloatProxy::operator=(const float& f) {
 	*_pointer = f;
-	return *this;
+	return (*this);
+}
+
+
+FloatProxy::operator float() const {
+	return *_pointer;
 }

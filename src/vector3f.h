@@ -25,7 +25,7 @@ class Vector3f {
 		Vector3f operator + (const Vector3f& right);
 		Vector3f& operator += (const Vector3f& right);
 		friend std::ostream& operator<<(std::ostream &str, const Vector3f& v);
-		float operator[](int index);
+		float& operator[](int index);
 	private:
 		float _vec[3];
 };

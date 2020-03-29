@@ -47,7 +47,7 @@ void Camera::deltaRotation(Vector3f deltaRotation) {
 }
 
 Vector3f Camera::lookAtReference() {
-	return this->pos + freecamMotionWorldspace(Vector3f(0, 0, -1));
+	return this->pos + Vector3f(0, 0, 1); //freecamMotionWorldspace(Vector3f(0, 0, 1));
 }
 
 Vector3f Camera::lookAtUp() {
@@ -83,8 +83,8 @@ Matrix4f Camera::freecamMotionTransform() {
 
 	result[0][0] = cosYaw;
 	result[0][2] = -sinYaw;
-	result[2][0]= sinYaw*cosPitch;
-	result[2][1]= -sinPitch;
-	result[2][2]= -cosPitch*-cosYaw;
+	result[2][0] = sinYaw*cosPitch;
+	result[2][1] = -sinPitch;
+	result[2][2] = -cosPitch*-cosYaw;
 	return result;
 }

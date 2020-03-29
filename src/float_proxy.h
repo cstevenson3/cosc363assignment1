@@ -12,8 +12,8 @@
 class FloatProxy {
 	public:
 		FloatProxy(float* pointer);
-		FloatProxy& operator=(float f);
-		operator float() {return *_pointer;};
+		FloatProxy& operator=(const float& f);
+		operator float() const;
 	private:
 		float* _pointer;
 };

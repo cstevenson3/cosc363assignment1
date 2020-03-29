@@ -13,13 +13,13 @@
 class Matrix4f {
 	public:
 		Matrix4f();
+		~Matrix4f();
 
 		static Matrix4f identity();
-
-		Vector4f operator*(Vector4f& right);
-		Vector4f& operator[](int row);
+		friend Vector4f operator*(const Matrix4f& left, const Vector4f& right);
+		const Vector4f operator[] (int row) const;
 	private:
-		float _matrix[16];
+		float* _matrix;
 };
 
 #endif /* SRC_MATRIX4F_H_ */
