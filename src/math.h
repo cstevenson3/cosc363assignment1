@@ -8,14 +8,20 @@
 #ifndef SRC_MATH_H_
 #define SRC_MATH_H_
 
-namespace math {
+#define PI (3.14159 * 1)
 
+namespace math {
 	float sin(float degrees);
+	float sinrad(float radians);
 	float cos(float degrees);
+	float cosrad(float radians);
 	float tan(float degrees);
 
 	float degreesToRadians(float degrees);
+	float radiansToDegrees(float radians);
 
+	float clamp(float val, float lower, float upper);
+	float floatMod(float dividend, float divisor);
 }
 
 #endif /* SRC_MATH_H_ */

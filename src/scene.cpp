@@ -7,13 +7,18 @@
 
 #include "scene.h"
 
+#include <GL/freeglut.h>
+
 Scene::Scene() {
 	drawables = vector<Drawable*>();
 }
 
 void Scene::draw() {
 	for(Drawable* drawable : drawables) {
-		drawable->draw();
+		if(drawable->isVisible()) {
+			glTranslatef((*(drawable->position()))[0], (*(drawable->position()))[1], (*(drawable->position()))[2]);
+			drawable->draw();
+		}
 	}
 }
 

@@ -12,8 +12,16 @@ float math::sin(float degrees) {
 	return std::sin(degreesToRadians(degrees));
 }
 
+float math::sinrad(float radians) {
+	return std::sin(radians);
+}
+
 float math::cos(float degrees) {
 	return std::cos(degreesToRadians(degrees));
+}
+
+float math::cosrad(float radians) {
+	return std::cos(radians);
 }
 
 float math::tan(float degrees) {
@@ -22,4 +30,23 @@ float math::tan(float degrees) {
 
 float math::degreesToRadians(float degrees) {
 	return degrees * 3.1415926 / 180;
+}
+
+float math::radiansToDegrees(float radians) {
+	return radians * 180. / 3.1415926 ;
+}
+
+float math::clamp(float val, float lower, float upper) {
+	float result = val;
+	if(result < lower) {
+		result = lower;
+	}
+	if(result > upper) {
+		result = upper;
+	}
+	return result;
+}
+
+float math::floatMod(float dividend, float divisor) {
+	return std::fmod(dividend, divisor);
 }

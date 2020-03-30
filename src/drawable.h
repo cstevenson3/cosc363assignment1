@@ -8,6 +8,8 @@
 #ifndef SRC_DRAWABLE_H_
 #define SRC_DRAWABLE_H_
 
+#include "vector3f.h"
+
 class Drawable {
 	public:
 		virtual void draw() = 0;
@@ -15,8 +17,10 @@ class Drawable {
 		void setVisibility(bool visible);
 		Drawable();
 		virtual inline ~Drawable() = 0;
+		Vector3f* position();
 	private:
 		bool visible;
+		Vector3f _position;
 };
 Drawable::~Drawable () {}
 

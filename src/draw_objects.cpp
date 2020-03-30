@@ -66,3 +66,32 @@ void drawFloorWireframe() {
 	}
 	glEnable(GL_LIGHTING);
 }
+
+void drawPendulum(float length, Vector3f armColor, Vector3f ballColor) {
+	//arm
+	glColor3f(armColor.f1(), armColor.f2(), armColor.f3());
+	glPushMatrix();
+		glScalef(0.05, length, 0.05);
+		glTranslatef(0., -0.5, 0.);
+		glutSolidCube(1.0);
+	glPopMatrix();
+
+	//ball
+	glColor3f(ballColor.f1(), ballColor.f2(), ballColor.f3());
+	glPushMatrix();
+		glTranslatef(0., -length, 0.);
+		glutSolidSphere(0.1, 32, 32);
+	glPopMatrix();
+}
+
+void drawDoublePendulum(float angle1, float angle2, float length1, float length2, Vector3f armColor, Vector3f ballColor) {
+	glPushMatrix();
+		glRotatef(angle1, 0., 0., 1.);
+		drawPendulum(length1, armColor, ballColor);
+		glPushMatrix();
+			glTranslatef(0., -length1, 0.);
+			glRotatef(angle2 - angle1, 0., 0., 1.);
+			drawPendulum(length2, armColor, ballColor);
+		glPopMatrix();
+	glPopMatrix();
+}

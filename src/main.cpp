@@ -14,15 +14,25 @@
 #include "graphics.h"
 #include "museum_walls.h"
 #include "floor_wireframe.h"
+#include "double_pendulum.h"
+#include "our_time.h"
+
+DoublePendulum doublePendulum_;
 
 void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
 }
 
+long int lastTime;
+
 void updateFunction(int te)
 {
+	long int currentTime = our_time::unixTimeMS();
+	int dt = currentTime - lastTime;
+	lastTime = currentTime;
 
 	//update objects
+	doublePendulum_.update(dt/1000.0);
 
 	camera()->update();
 
@@ -45,7 +55,11 @@ int main(int argc, char **argv)
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 
+	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.3, 0.4, 0.5, 1., 2., 2.);
+	*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
+	scene()->addDrawable(doublePendulum_);
 
+	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);
 	graphicsMainLoop();
 	return 0;

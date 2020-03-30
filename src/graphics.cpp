@@ -38,9 +38,12 @@ void display(void)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
     glColor3f(0.0, 1.0, 1.0);
-    glutSolidTeapot(1.0);
+    //glutSolidTeapot(1.0);
 
     scene_.draw();
+    glDisable(GL_LIGHTING);
+    //drawPendulum(5., Vector3f(1., 1., 1.), Vector3f(1., 0.0, 0.0));
+    glEnable(GL_LIGHTING);
 
 	glFlush();
 }

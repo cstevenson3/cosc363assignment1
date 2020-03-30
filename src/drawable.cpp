@@ -9,6 +9,7 @@
 
 Drawable::Drawable() {
 	visible = true;
+	_position = Vector3f(0.0, 0.0, 0.0);
 }
 
 bool Drawable::isVisible() {
@@ -17,4 +18,8 @@ bool Drawable::isVisible() {
 
 void Drawable::setVisibility(bool visible) {
 	this->visible = visible;
+}
+
+Vector3f* Drawable::position() {
+	return &_position;
 }
