@@ -20,29 +20,33 @@ class DoublePendulum : public Drawable {
 		// deltaTime is in seconds
 		void update(float deltaTime);
 		void draw();
+
+		long double currentEnergy();
 	private:
 		Vector3f armColor;
 		Vector3f ballColor;
 
 		//gravity
-		float g;
+		long double g;
 
 		//lengths
-		float l1;
-		float l2;
+		long double l1;
+		long double l2;
 
 		//mass
-		float m1;
-		float m2;
+		long double m1;
+		long double m2;
 
 		//in radians
 
 		//angles
-		float a1;
-		float a2;
+		long double a1;
+		long double a2;
 		//angular velocities
-		float w1;
-		float w2;
+		long double w1;
+		long double w2;
+
+		long double initialEnergy;
 };
 
 

@@ -19,29 +19,85 @@ DoublePendulum::DoublePendulum(Vector3f armColor, Vector3f ballColor, float grav
 	l2 = length2;
 	m1 = mass1;
 	m2 = mass2;
-	a1 = angle1;
-	a2 = angle2;
+	a1 = math::degreesToRadians(angle1);
+	a2 = math::degreesToRadians(angle2);
 	w1 = 0.0;
 	w2 = 0.0;
+	initialEnergy = currentEnergy();
 }
 
 void DoublePendulum::update(float deltaTime) {
-	float dt = deltaTime;
-
-	a1 = math::floatMod(a1 + w1 * dt, 2 * PI);
-	a2 = math::floatMod(a2 + w2 * dt, 2 * PI);
+	long double dt = deltaTime;
 
 	// sourced from https://web.mit.edu/jorloff/www/chaosTalk/double-pendulum/double-pendulum-en.html
-	float dw1dt = (-g*(2*m1+m2)*math::sinrad(a1) - m2*g*math::sinrad(a1-2*a2) - 2*math::sinrad(a1-a2)*m2*(w2*w2*l2+w1*w1*l1*math::cosrad(a1-a2))) / (l1*(2*m1+m2-m2*math::cosrad(2*a1-2*a2)));
-	float dw2dt = (2*math::sinrad(a1-a2)*(w1*w1*l1*(m1+m2)) + g*(m1+m2)*math::cosrad(a1)+w2*w2*l2*m2*math::cosrad(a1-a2)) / (l2*(2*m1+m2-m2*math::cosrad(2*a1-2*a2)));
+	long double dw1dt = (-g*(2*m1+m2)*math::sinrad(a1) - m2*g*math::sinrad(a1-2*a2) - 2*math::sinrad(a1-a2)*m2*(w2*w2*l2+w1*w1*l1*math::cosrad(a1-a2))) / (l1*(2*m1+m2-m2*math::cosrad(2*a1-2*a2)));
+	long double dw2dt = (2*math::sinrad(a1-a2)*(w1*w1*l1*(m1+m2) + g*(m1+m2)*math::cosrad(a1)+w2*w2*l2*m2*math::cosrad(a1-a2))) / (l2*(2*m1+m2-m2*math::cosrad(2*a1-2*a2)));
 
-	float dw1 = dw1dt * dt;
-	float dw2 = dw2dt * dt;
+//	//weights
+//	float Fg1 = - m1 * g * math::sinrad(a1);
+//	float Fg2 = - m2 * g * math::sinrad(a2);
+//
+//	//centripetal acceleration
+//	float Fc2 = m2 * w2 * w2 * l2;
+//
+//	//tensions
+//	float T2 = m2 * g * math::cosrad(a2) + Fc2;
+//	float T2p = T2 * math::sinrad(a2 - a1); // T2 acting perpendicular on ball 1
+//
+//	//torques
+//	float tau1 = (T2p + Fg1) * l1;
+//	float tau2 = Fg2 * l2;
+//
+//	//moment of inertias
+//	float i1 = m1 * l1 * l1;
+//	float i2 = m2 * l2 * l2;
+//
+//	float dw1dt = tau1/i1;
+//	float dw2dt = tau2/i2;
+
+	long double dw1 = dw1dt * dt;
+	long double dw2 = dw2dt * dt;
 
 	w1 += dw1;
 	w2 += dw2;
 
+	a1 += w1 * dt;
+	a2 += w2 * dt;
 
+	//energy check
+	std::cout << currentEnergy() << std::endl;
+	//potential
+
+//	a1 = math::floatMod(a1 + w1 * dt, 2 * PI);
+//	a2 = math::floatMod(a2 + w2 * dt, 2 * PI);
+}
+
+long double DoublePendulum::currentEnergy() {
+	//gravitational potential
+	long double x1 = l1 * math::sinrad(a1);
+	long double y1 = - l1 * math::cosrad(a1);
+
+	long double x2 = x1 + l2 * math::sinrad(a2);
+	long double y2 = x2 - l2 * math::cosrad(a2);
+
+	long double Eg1 = m1 * g * y1;
+	long double Eg2 = m2 * g * y2;
+
+	//kinetic
+	long double vx1 = w1 * l1 * math::cosrad(a1);
+	long double vy1 = w1 * l1 * math::sinrad(a1);
+
+	long double vx2 = vx1 + w2 * l2 * math::cosrad(a2);
+	long double vy2 = vy1 + w2 * l2 * math::sinrad(a2);
+
+	long double v1 = math::sqrt(vx1 * vx1 + vy1 * vy1);
+	long double v2 = math::sqrt(vx2 * vx2 + vy2 * vy2);
+
+	long double Ek1 = (1/2) * m1 * v1 * v1;
+	long double Ek2 = (1/2) * m2 * v2 * v2;
+
+	//total
+	return Eg1 + Eg2 + Ek1 + Ek2;
 }
 
 void DoublePendulum::draw() {

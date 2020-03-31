@@ -16,6 +16,10 @@ float math::sinrad(float radians) {
 	return std::sin(radians);
 }
 
+long double math::sinrad(long double radians) {
+	return std::sin(radians);
+}
+
 float math::cos(float degrees) {
 	return std::cos(degreesToRadians(degrees));
 }
@@ -24,8 +28,16 @@ float math::cosrad(float radians) {
 	return std::cos(radians);
 }
 
+long double math::cosrad(long double radians) {
+	return std::cos(radians);
+}
+
 float math::tan(float degrees) {
 	return std::tan(degreesToRadians(degrees));
+}
+
+float math::sqrt(float x) {
+	return std::sqrt(x);
 }
 
 float math::degreesToRadians(float degrees) {

@@ -16,8 +16,10 @@ Scene::Scene() {
 void Scene::draw() {
 	for(Drawable* drawable : drawables) {
 		if(drawable->isVisible()) {
-			glTranslatef((*(drawable->position()))[0], (*(drawable->position()))[1], (*(drawable->position()))[2]);
-			drawable->draw();
+			glPushMatrix();
+				glTranslatef((*(drawable->position()))[0], (*(drawable->position()))[1], (*(drawable->position()))[2]);
+				drawable->draw();
+			glPopMatrix();
 		}
 	}
 }

@@ -18,7 +18,7 @@ Scene scene_;
 
 void display(void)
 {
-	float l0pos[4] = {-3., 5., 0., 1.0};  //light 0's position
+	float l0pos[4] = {-3., 5., 1., 1.0};  //light 0's position
 	float l1pos[4] = {3., 5., 0., 1.0};  //light 1's position
 	float l1diffuse[4] = {1., 1., 1., 1.0};  //light 1's diffuse
 
@@ -42,7 +42,7 @@ void display(void)
 
     scene_.draw();
     glDisable(GL_LIGHTING);
-    //drawPendulum(5., Vector3f(1., 1., 1.), Vector3f(1., 0.0, 0.0));
+    drawDoublePendulum(90.0, 0.0, 3.0, 4.0, Vector3f(1., 1., 1.), Vector3f(1., 0.0, 0.0));
     glEnable(GL_LIGHTING);
 
 	glFlush();

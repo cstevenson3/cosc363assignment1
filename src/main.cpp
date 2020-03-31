@@ -25,6 +25,8 @@ void keyboardLoggingCallback(int key) {
 
 long int lastTime;
 
+int updateCounter = 0;
+
 void updateFunction(int te)
 {
 	long int currentTime = our_time::unixTimeMS();
@@ -32,7 +34,7 @@ void updateFunction(int te)
 	lastTime = currentTime;
 
 	//update objects
-	doublePendulum_.update(dt/1000.0);
+	doublePendulum_.update((dt/(1000.0)));
 
 	camera()->update();
 
@@ -55,7 +57,7 @@ int main(int argc, char **argv)
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 
-	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.3, 0.4, 0.5, 1., 2., 2.);
+	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
 	*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
 	scene()->addDrawable(doublePendulum_);
 
