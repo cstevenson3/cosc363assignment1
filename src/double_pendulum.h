@@ -21,7 +21,11 @@ class DoublePendulum : public Drawable {
 		void update(float deltaTime);
 		void draw();
 
-		long double currentEnergy();
+		long double energy();
+		long double Ek1();
+		long double Ek2();
+		long double Eg1();
+		long double Eg2();
 	private:
 		Vector3f armColor;
 		Vector3f ballColor;

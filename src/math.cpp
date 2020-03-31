@@ -40,6 +40,10 @@ float math::sqrt(float x) {
 	return std::sqrt(x);
 }
 
+long double math::sqrt(long double x) {
+	return std::sqrt(x);
+}
+
 float math::degreesToRadians(float degrees) {
 	return degrees * 3.1415926 / 180;
 }

@@ -20,6 +20,7 @@ namespace math {
 	float tan(float degrees);
 
 	float sqrt(float x);
+	long double sqrt(long double x);
 
 	float degreesToRadians(float degrees);
 	float radiansToDegrees(float radians);

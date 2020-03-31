@@ -34,7 +34,10 @@ void updateFunction(int te)
 	lastTime = currentTime;
 
 	//update objects
-	doublePendulum_.update((dt/(1000.0)));
+	int res = 100;
+	for(int i = 0; i < res; i++) {
+		doublePendulum_.update((dt/(1000.0 * res)));
+	}
 
 	camera()->update();
 
