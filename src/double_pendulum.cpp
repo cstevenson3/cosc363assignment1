@@ -45,25 +45,6 @@ void DoublePendulum::update(float deltaTime) {
 
 	a1 += w1 * dt;
 	a2 += w2 * dt;
-	//error correction
-	long double energyLost = initialEnergy - energy();
-	//std::cout << energyLost << std::endl;
-	//inject lost energy back into pendulum 1
-	long double desiredEk2 = Ek2() + energyLost;
-	//std::cout << Ek2() << std::endl;
-	//std::cout << desiredEk2 << std::endl;
-	if(desiredEk2 > 0) {
-		//w2 = w2fromDesiredEk2(desiredEk2);
-	}
-	//std::cout << energyLost << std::endl;
-	std::cout << w2 << std::endl;
-	std::cout << w2fromDesiredEk2(desiredEk2) << std::endl;
-//	std::cout << w2 << std::endl;
-//	std::cout << w2fromDesiredEk2(Ek2()) << std::endl;
-//
-////	std::cout << desiredEk2 << std::endl;
-////	std::cout << Ek2() << std::endl;
-	std::cout << std::endl;
 }
 
 long double DoublePendulum::energy() {
@@ -118,38 +99,4 @@ long double DoublePendulum::Eg2() {
 	long double _Eg2 = m2 * g * y2;
 
 	return _Eg2;
-}
-
-long double DoublePendulum::w2fromDesiredEk2(long double Ek2){
-	//don't touch it if w2 is too small
-	if(w2 < 0.1 && w2 > -0.1) {
-		return w2;
-	}
-
-	//derived from solving for w2 with Ek2 as variable and everything else as constant in the Ek2 function
-	long double a = l2;
-	long double b = 2. * w1 * l1 * l2 * math::cosrad(a1 - a2);
-	long double c = w1 * w1 * l1 * l1 - 2. * Ek2 / m2;
-	long double D = b * b - 4 * a * c;
-
-	if(D < 0) {
-		return w2;
-	}
-
-	long double sqrtD = math::sqrt(D);
-	long double root1 = (- b - sqrtD) / (2 * a);
-	long double root2 = (- b + sqrtD) / (2 * a);
-
-	long double negativeRoot = root1;
-	long double positiveRoot = root2;
-
-	if(root1 > 0) {
-		negativeRoot = root2;
-		positiveRoot = root1;
-	}
-
-	if(w2 > 0) {
-		return positiveRoot;
-	}
-	return negativeRoot;
 }
