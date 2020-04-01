@@ -45,6 +45,16 @@ void DoublePendulum::update(float deltaTime) {
 
 	a1 += w1 * dt;
 	a2 += w2 * dt;
+
+	// if energy has not been conserved, remove or inject energy from/into the system
+	if(energy() > initialEnergy) {
+		w1 *= 0.99;
+		w2 *= 0.99;
+	}
+	if(energy() < initialEnergy) {
+		w1 *= 1.01;
+		w2 *= 1.01;
+	}
 }
 
 long double DoublePendulum::energy() {
