@@ -26,6 +26,8 @@ class DoublePendulum : public Drawable {
 		long double Ek2();
 		long double Eg1();
 		long double Eg2();
+
+		long double w2fromDesiredEk2(long double Ek2);
 	private:
 		Vector3f armColor;
 		Vector3f ballColor;
