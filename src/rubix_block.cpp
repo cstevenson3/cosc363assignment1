@@ -86,10 +86,6 @@ void RubixBlock::updateWithTurn(RubixTurn& turn) {
 		std::reverse(locationRotation.begin(), locationRotation.end());
 	}
 
-	for(int l = 0; l < 3; l++) {
-		std::cout << _location[l] << std::endl;
-	}
-
 	//location rotation
 	if(*(locationRotation[0]) * *(locationRotation[1]) == 0) {
 		//an edge block
@@ -107,26 +103,10 @@ void RubixBlock::updateWithTurn(RubixTurn& turn) {
 		}
 	}
 
-	for(int l = 0; l < 3; l++) {
-		std::cout << _location[l] << std::endl;
-	}
-
-	std::cout << std::endl;
-
-	for(int c = 0; c < 6; c++) {
-		std::cout << _colors[c] << std::endl;
-	}
-
 	//color rotation
 	COLORS tmpCol = *(colorRotation[3]);
 	for(int i = 3; i > 0; i--) {
 		*(colorRotation[i]) = *(colorRotation[i - 1]);
 	}
 	*(colorRotation[0]) = tmpCol;
-
-	for(int c = 0; c < 6; c++) {
-		std::cout << _colors[c] << std::endl;
-	}
-
-	std::cout << std::endl;
 }

@@ -114,10 +114,6 @@ void RubixCube::update(float deltaTime) {
 			block->updateWithTurn(_currentTurn);
 		}
 		correctBlocksOrdering();
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
-		std::cout << std::endl;
 		_currentTurn = generateRandomTurn();
 	}
 }

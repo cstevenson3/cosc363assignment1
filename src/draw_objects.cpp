@@ -109,6 +109,8 @@ void drawRubixBlock(RubixBlock& block) {
 				for(int j = 0; j < 6; j++) {
 					colors[j] = block.colorToRGB(block.colors()[j]);
 				}
+				glPolygonOffset(1,1);
+				glEnable(GL_POLYGON_OFFSET_FILL);
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			if(i == 1) {
@@ -116,7 +118,7 @@ void drawRubixBlock(RubixBlock& block) {
 					colors[j] = Vector3f(0., 0., 0.);
 				}
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glLineWidth(10.);
+				glLineWidth(5.);
 			}
 			Vector3f color;
 			glBegin(GL_QUADS);
@@ -174,6 +176,7 @@ void drawRubixBlock(RubixBlock& block) {
 	//reset
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glLineWidth(1.);
+	glDisable(GL_POLYGON_OFFSET_FILL);
 }
 
 void drawRubixCube(RubixCube& cube) {
