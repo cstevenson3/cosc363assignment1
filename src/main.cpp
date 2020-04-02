@@ -26,6 +26,7 @@
 #include "rubix_cube.h"
 
 DoublePendulum doublePendulum_;
+RubixCube cube_;
 
 void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
@@ -38,14 +39,17 @@ int updateCounter = 0;
 void updateFunction(int te)
 {
 	long int currentTime = our_time::unixTimeMS();
-	int dt = currentTime - lastTime;
+	float dt = (currentTime - lastTime) / 1000.0;
 	lastTime = currentTime;
 
 	//update objects
 	int res = 100;
 	for(int i = 0; i < res; i++) {
-		doublePendulum_.update((dt/(1000.0 * res)));
+		doublePendulum_.update((dt / res));
 	}
+
+	cube_.update(dt);
+	cube_.turningBlocks();
 
 	camera()->update();
 
@@ -72,9 +76,9 @@ int main(int argc, char **argv)
 	//*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
 	//scene()->addDrawable(doublePendulum_);
 
-	RubixCube cube = RubixCube();
-	*(cube.position()) = Vector3f(0.0, 5.0, 0.0);
-	scene()->addDrawable(cube);
+	cube_ = RubixCube();
+	*(cube_.position()) = Vector3f(0.0, 2.0, 0.0);
+	scene()->addDrawable(cube_);
 
 	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);

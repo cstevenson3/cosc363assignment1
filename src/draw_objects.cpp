@@ -7,6 +7,7 @@
 
 #include "draw_objects.h"
 
+#include <iostream>
 #include <GL/freeglut.h>
 
 #include "math.h"
@@ -176,10 +177,33 @@ void drawRubixBlock(RubixBlock& block) {
 }
 
 void drawRubixCube(RubixCube& cube) {
+	//turning face
+	vector<RubixBlock*> turningBlocks = cube.turningBlocks();
+	Vector3f axis;
+	float direction = *(cube.currentTurn()->direction()) == RubixTurn::DIRECTION::CC ? 1. : -1.;
+	float angle = direction * 90.0 * *(cube.currentTurn()->progress());
+	switch(*(cube.currentTurn()->axis())) {
+	case RubixTurn::AXIS::X:
+		axis = Vector3f(1., 0., 0.);
+		break;
+	case RubixTurn::AXIS::Y:
+		axis = Vector3f(0., 1., 0.);
+		break;
+	case RubixTurn::AXIS::Z:
+		axis = Vector3f(0., 0., 1.);
+		break;
+	}
 	for(int x = -1; x < 2; x++) {
 		for(int y = -1; y < 2; y++) {
 			for(int z = -1; z < 2; z++) {
-				drawRubixBlock(*(cube.block(x, y, z)));
+				if(std::find(turningBlocks.begin(), turningBlocks.end(), cube.block(x, y, z)) != turningBlocks.end()){
+					glPushMatrix();
+						glRotatef(angle, axis[0], axis[1], axis[2]);
+						drawRubixBlock(*(cube.block(x, y, z)));
+					glPopMatrix();
+				} else {
+					drawRubixBlock(*(cube.block(x, y, z)));
+				}
 			}
 		}
 	}

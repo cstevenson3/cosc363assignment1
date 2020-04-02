@@ -7,8 +7,18 @@
 
 #include "rubix_cube.h"
 
-#include "rubix_block.h"
+#include <iostream>
+
 #include "draw_objects.h"
+
+RubixTurn generateRandomTurn() {
+	RubixTurn turn = RubixTurn();
+	*(turn.axis()) = RubixTurn::AXIS::X;
+	*(turn.side()) = RubixTurn::SIDE::NEGATIVE;
+	*(turn.direction()) = RubixTurn::DIRECTION::CC;
+	*(turn.progress()) = 0.0;
+	return turn;
+}
 
 RubixCube::RubixCube() {
 	for(int x = -1; x < 2; x++) {
@@ -39,12 +49,35 @@ RubixCube::RubixCube() {
 			}
 		}
 	}
+	_currentTurn = generateRandomTurn();
 }
+
+
 
 RubixBlock* RubixCube::block(int x, int y, int z) {
 	return blocks + (x + 1) * 9 + (y + 1) * 3 + (z + 1);
 }
 
+void RubixCube::update(float deltaTime) {
+	*(_currentTurn.progress()) += deltaTime;
+	if(*(_currentTurn.progress()) > 1.0) {
+		std::cout << "here" << std::endl;
+	}
+}
+
 void RubixCube::draw() {
 	drawRubixCube(*this);
+}
+
+RubixTurn* RubixCube::currentTurn() {
+	return &_currentTurn;
+}
+
+vector<RubixBlock*> RubixCube::turningBlocks() {
+	vector<RubixBlock*> _turningBlocks(9);
+	vector<vector<int> > blockLocations = _currentTurn.affectedLocations();
+	for(int i = 0; i < 9; i++) {
+		_turningBlocks[i] = block(blockLocations[i][0], blockLocations[i][1], blockLocations[i][2]);
+	}
+	return _turningBlocks;
 }
