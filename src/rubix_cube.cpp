@@ -43,7 +43,7 @@ RubixTurn generateRandomTurn() {
 		*(turn.direction()) = RubixTurn::DIRECTION::C;
 		break;
 	}
-
+	*(turn.direction()) = RubixTurn::DIRECTION::CC;
 	*(turn.progress()) = 0.0;
 	return turn;
 }

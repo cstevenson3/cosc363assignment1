@@ -57,8 +57,8 @@ void RubixBlock::updateWithTurn(RubixTurn& turn) {
 		colorRotation[2] = &_colors[3]; //top
 		colorRotation[3] = &_colors[5]; //front
 
-		locationRotation[0] = &_location[2]; //Z
-		locationRotation[1] = &_location[1]; //Y
+		locationRotation[0] = &_location[1]; //Y
+		locationRotation[1] = &_location[2]; //Z
 		break;
 	case RubixTurn::AXIS::Y:
 		colorRotation[0] = &_colors[0]; //left
@@ -113,10 +113,20 @@ void RubixBlock::updateWithTurn(RubixTurn& turn) {
 
 	std::cout << std::endl;
 
+	for(int c = 0; c < 6; c++) {
+		std::cout << _colors[c] << std::endl;
+	}
+
 	//color rotation
 	COLORS tmpCol = *(colorRotation[3]);
-	for(int i = 0; i < 3; i++) {
-		*(colorRotation[i + 1]) = *(colorRotation[i]);
+	for(int i = 3; i > 0; i--) {
+		*(colorRotation[i]) = *(colorRotation[i - 1]);
 	}
 	*(colorRotation[0]) = tmpCol;
+
+	for(int c = 0; c < 6; c++) {
+		std::cout << _colors[c] << std::endl;
+	}
+
+	std::cout << std::endl;
 }
