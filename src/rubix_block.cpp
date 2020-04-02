@@ -7,6 +7,9 @@
 
 #include "rubix_block.h"
 
+#include <iostream>
+#include <algorithm>
+
 RubixBlock::RubixBlock() {
 	for(int i = 0; i < 6; i++) {
 		_colors[i] = COLORS::INSIDE;
@@ -40,4 +43,80 @@ Vector3f RubixBlock::colorToRGB(COLORS color) {
 	default:
 		return Vector3f(1., 0., 1.); // purple if error
 	}
+}
+
+void RubixBlock::updateWithTurn(RubixTurn& turn) {
+	vector<COLORS*> colorRotation(4); //which 4 elements of color to rotate through
+	vector<int*> locationRotation(2); //which 2 elements of rotation to rotate through
+
+	//assuming CC
+	switch(*(turn.axis())) {
+	case RubixTurn::AXIS::X:
+		colorRotation[0] = &_colors[2]; //bottom
+		colorRotation[1] = &_colors[4]; //back
+		colorRotation[2] = &_colors[3]; //top
+		colorRotation[3] = &_colors[5]; //front
+
+		locationRotation[0] = &_location[2]; //Z
+		locationRotation[1] = &_location[1]; //Y
+		break;
+	case RubixTurn::AXIS::Y:
+		colorRotation[0] = &_colors[0]; //left
+		colorRotation[1] = &_colors[5]; //front
+		colorRotation[2] = &_colors[1]; //right
+		colorRotation[3] = &_colors[4]; //back
+
+		locationRotation[0] = &_location[2]; //Z
+		locationRotation[1] = &_location[0]; //X
+		break;
+	case RubixTurn::AXIS::Z:
+		colorRotation[0] = &_colors[0]; //left
+		colorRotation[1] = &_colors[2]; //bottom
+		colorRotation[2] = &_colors[1]; //right
+		colorRotation[3] = &_colors[3]; //top
+
+		locationRotation[0] = &_location[0]; //X
+		locationRotation[1] = &_location[1]; //Y
+		break;
+	}
+
+	if(*(turn.direction()) == RubixTurn::DIRECTION::C) {
+		//reverse rotation
+		std::reverse(colorRotation.begin(), colorRotation.end());
+		std::reverse(locationRotation.begin(), locationRotation.end());
+	}
+
+	for(int l = 0; l < 3; l++) {
+		std::cout << _location[l] << std::endl;
+	}
+
+	//location rotation
+	if(*(locationRotation[0]) * *(locationRotation[1]) == 0) {
+		//an edge block
+		int tmpLoc = *(locationRotation[1]);
+		*(locationRotation[1]) = *(locationRotation[0]);
+		*(locationRotation[0]) = - tmpLoc;
+	} else {
+		//a corner block
+		if(*(locationRotation[0]) == *(locationRotation[1])) {
+			//e.g. if z is axis and x,y are same, x swaps
+			*(locationRotation[0]) = - *(locationRotation[0]);
+		} else {
+			//e.g. if z is axis and x,y are different, y swaps
+			*(locationRotation[1]) = - *(locationRotation[1]);
+		}
+	}
+
+	for(int l = 0; l < 3; l++) {
+		std::cout << _location[l] << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	//color rotation
+	COLORS tmpCol = *(colorRotation[3]);
+	for(int i = 0; i < 3; i++) {
+		*(colorRotation[i + 1]) = *(colorRotation[i]);
+	}
+	*(colorRotation[0]) = tmpCol;
 }

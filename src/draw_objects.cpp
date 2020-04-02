@@ -177,6 +177,7 @@ void drawRubixBlock(RubixBlock& block) {
 }
 
 void drawRubixCube(RubixCube& cube) {
+	glDisable(GL_LIGHTING);
 	//turning face
 	vector<RubixBlock*> turningBlocks = cube.turningBlocks();
 	Vector3f axis;
@@ -207,4 +208,5 @@ void drawRubixCube(RubixCube& cube) {
 			}
 		}
 	}
+	glEnable(GL_LIGHTING);
 }

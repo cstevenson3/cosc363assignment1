@@ -24,7 +24,9 @@ class RubixCube : public Drawable {
 		//animation
 		RubixTurn* currentTurn();
 		vector<RubixBlock*> turningBlocks();
+
 	private:
+		void correctBlocksOrdering();
 		RubixBlock blocks[27];
 		RubixTurn _currentTurn;
 };

@@ -30,7 +30,7 @@ float* RubixTurn::progress() {
 vector<vector<int> > RubixTurn::affectedLocations() {
 	vector<vector<int> > _affectedLocations(9, vector<int> (3, 0));
 
-	int faceConstant = _side == SIDE::NEGATIVE ? -1: 1;
+	int faceConstant = _side == SIDE::NEGATIVE ? -1 : 1;
 	int i = 0;
 	switch(_axis) {
 	case X:

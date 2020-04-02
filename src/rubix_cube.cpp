@@ -86,9 +86,38 @@ RubixBlock* RubixCube::block(int x, int y, int z) {
 	return blocks + (x + 1) * 9 + (y + 1) * 3 + (z + 1);
 }
 
+void RubixCube::correctBlocksOrdering() {
+	RubixBlock tmp[27];
+	for(int i = 0; i < 27; i++) {
+		tmp[i] = blocks[i];
+	}
+	//find correct block for each location, put it back into blocks
+	for(int x = -1; x < 2; x++) {
+		for(int y = -1; y < 2; y++) {
+			for(int z = -1; z < 2; z++) {
+				for(int t = 0; t < 27; t++) {
+					int* loc = tmp[t].location();
+					if(x == loc[0] && y == loc[1] && z == loc[2]) {
+						//match
+						*(block(x, y, z)) = tmp[t];
+					}
+				}
+			}
+		}
+	}
+}
+
 void RubixCube::update(float deltaTime) {
 	*(_currentTurn.progress()) += deltaTime;
 	if(*(_currentTurn.progress()) > 1.0) {
+		for(RubixBlock* block : turningBlocks()) {
+			block->updateWithTurn(_currentTurn);
+		}
+		correctBlocksOrdering();
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
 		_currentTurn = generateRandomTurn();
 	}
 }

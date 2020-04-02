@@ -9,6 +9,7 @@
 #define SRC_RUBIX_BLOCK_H_
 
 #include "vector3f.h"
+#include "rubix_turn.h"
 
 class RubixBlock {
 	public:
@@ -19,6 +20,7 @@ class RubixBlock {
 		COLORS* colors();
 
 		Vector3f colorToRGB(COLORS color);
+		void updateWithTurn(RubixTurn& turn);
 	private:
 		int _location[3];
 		//left, right, bottom, top, back, front
