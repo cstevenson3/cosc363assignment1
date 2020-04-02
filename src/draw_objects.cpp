@@ -95,3 +95,92 @@ void drawDoublePendulum(float angle1, float angle2, float length1, float length2
 		glPopMatrix();
 	glPopMatrix();
 }
+
+void drawRubixBlock(RubixBlock& block) {
+	glPushMatrix();
+		int* location = block.location();
+		glTranslatef(location[0] * 1., location[1] * 1., location[2] * 1.);
+
+		//pass 0 is solid cubes, pass 1 is the thick black borders
+		for(int i = 0; i < 2; i++) {
+			Vector3f colors[6];
+			if(i == 0) {
+				for(int j = 0; j < 6; j++) {
+					colors[j] = block.colorToRGB(block.colors()[j]);
+				}
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+			if(i == 1) {
+				for(int j = 0; j < 6; j++) {
+					colors[j] = Vector3f(0., 0., 0.);
+				}
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				glLineWidth(10.);
+			}
+			Vector3f color;
+			glBegin(GL_QUADS);
+				//left
+				color = colors[0];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(-0.5, -0.5, -0.5);
+				glVertex3f(-0.5, -0.5, 0.5);
+				glVertex3f(-0.5, 0.5, 0.5);
+				glVertex3f(-0.5, 0.5, -0.5);
+
+				//right
+				color = colors[1];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(0.5, -0.5, -0.5);
+				glVertex3f(0.5, 0.5, -0.5);
+				glVertex3f(0.5, 0.5, 0.5);
+				glVertex3f(0.5, -0.5, 0.5);
+
+				//bottom
+				color = colors[2];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(-0.5, -0.5, -0.5);
+				glVertex3f(0.5, -0.5, -0.5);
+				glVertex3f(0.5, -0.5, 0.5);
+				glVertex3f(-0.5, -0.5, 0.5);
+
+				//top
+				color = colors[3];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(-0.5, 0.5, -0.5);
+				glVertex3f(-0.5, 0.5, 0.5);
+				glVertex3f(0.5, 0.5, 0.5);
+				glVertex3f(0.5, 0.5, -0.5);
+
+				//back
+				color = colors[4];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(-0.5, -0.5, -0.5);
+				glVertex3f(-0.5, 0.5, -0.5);
+				glVertex3f(0.5, 0.5, -0.5);
+				glVertex3f(0.5, -0.5, -0.5);
+
+				//front
+				color = colors[5];
+				glColor3f(color[0], color[1], color[2]);
+				glVertex3f(-0.5, -0.5, 0.5);
+				glVertex3f(0.5, -0.5, 0.5);
+				glVertex3f(0.5, 0.5, 0.5);
+				glVertex3f(-0.5, 0.5, 0.5);
+			glEnd();
+		}
+	glPopMatrix();
+
+	//reset
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glLineWidth(1.);
+}
+
+void drawRubixCube(RubixCube& cube) {
+	for(int x = -1; x < 2; x++) {
+		for(int y = -1; y < 2; y++) {
+			for(int z = -1; z < 2; z++) {
+				drawRubixBlock(*(cube.block(x, y, z)));
+			}
+		}
+	}
+}

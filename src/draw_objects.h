@@ -9,6 +9,7 @@
 #define SRC_DRAW_OBJECTS_H_
 
 #include "vector3f.h"
+#include "rubix_cube.h"
 
 /* dimensions are width, height, depth
  * color is rgb
@@ -18,5 +19,6 @@ void drawMuseumWalls(float numWalls, float radius, float height, float thickness
 void drawFloorWireframe();
 void drawPendulum(float length, Vector3f armColor, Vector3f ballColor);
 void drawDoublePendulum(float angle1, float angle2, float length1, float length2, Vector3f armColor, Vector3f ballColor);
+void drawRubixCube(RubixCube& cube);
 
 #endif /* SRC_DRAW_OBJECTS_H_ */

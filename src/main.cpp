@@ -5,17 +5,25 @@
  *      Author: Cameron Stevenson
  */
 
+//stdlib
 #include <iostream>
 #include <string>
 #include <cmath>
+
+//gl
 #include <GL/freeglut.h>
+
+//ours
 #include "keyboard.h"
 #include "camera.h"
 #include "graphics.h"
+#include "our_time.h"
+
+//objects
 #include "museum_walls.h"
 #include "floor_wireframe.h"
 #include "double_pendulum.h"
-#include "our_time.h"
+#include "rubix_cube.h"
 
 DoublePendulum doublePendulum_;
 
@@ -60,9 +68,13 @@ int main(int argc, char **argv)
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 
-	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
-	*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
-	scene()->addDrawable(doublePendulum_);
+	//doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
+	//*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
+	//scene()->addDrawable(doublePendulum_);
+
+	RubixCube cube = RubixCube();
+	*(cube.position()) = Vector3f(0.0, 5.0, 0.0);
+	scene()->addDrawable(cube);
 
 	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);

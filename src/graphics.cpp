@@ -41,9 +41,6 @@ void display(void)
     //glutSolidTeapot(1.0);
 
     scene_.draw();
-    glDisable(GL_LIGHTING);
-    drawDoublePendulum(90.0, 0.0, 3.0, 4.0, Vector3f(1., 1., 1.), Vector3f(1., 0.0, 0.0));
-    glEnable(GL_LIGHTING);
 
 	glFlush();
 }
