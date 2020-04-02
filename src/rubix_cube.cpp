@@ -13,9 +13,37 @@
 
 RubixTurn generateRandomTurn() {
 	RubixTurn turn = RubixTurn();
-	*(turn.axis()) = RubixTurn::AXIS::X;
-	*(turn.side()) = RubixTurn::SIDE::NEGATIVE;
-	*(turn.direction()) = RubixTurn::DIRECTION::CC;
+
+	switch(rand() % 3) {
+	case 0:
+		*(turn.axis()) = RubixTurn::AXIS::X;
+		break;
+	case 1:
+		*(turn.axis()) = RubixTurn::AXIS::Y;
+		break;
+	case 2:
+		*(turn.axis()) = RubixTurn::AXIS::Z;
+		break;
+	}
+
+	switch(rand() % 2) {
+	case 0:
+		*(turn.side()) = RubixTurn::SIDE::NEGATIVE;
+		break;
+	case 1:
+		*(turn.side()) = RubixTurn::SIDE::POSITIVE;
+		break;
+	}
+
+	switch(rand() % 2) {
+	case 0:
+		*(turn.direction()) = RubixTurn::DIRECTION::CC;
+		break;
+	case 1:
+		*(turn.direction()) = RubixTurn::DIRECTION::C;
+		break;
+	}
+
 	*(turn.progress()) = 0.0;
 	return turn;
 }
@@ -61,7 +89,7 @@ RubixBlock* RubixCube::block(int x, int y, int z) {
 void RubixCube::update(float deltaTime) {
 	*(_currentTurn.progress()) += deltaTime;
 	if(*(_currentTurn.progress()) > 1.0) {
-		std::cout << "here" << std::endl;
+		_currentTurn = generateRandomTurn();
 	}
 }
 
