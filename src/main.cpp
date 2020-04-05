@@ -24,6 +24,9 @@
 #include "floor_wireframe.h"
 #include "double_pendulum.h"
 #include "rubix_cube.h"
+#include "skybox.h"
+
+char* skyboxFilenames[6] = {"textures/wall.tga", "textures/wall.tga", "textures/floor.tga", "textures/floor.tga", "textures/wall.tga", "textures/wall.tga"};
 
 DoublePendulum doublePendulum_;
 RubixCube cube_;
@@ -68,6 +71,9 @@ int main(int argc, char **argv)
 
 	FloorWireframe floorWireframe = FloorWireframe();
 	scene()->addDrawable(floorWireframe);
+
+	Skybox skybox = Skybox(skyboxFilenames);
+	scene()->addDrawable(skybox);
 
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
