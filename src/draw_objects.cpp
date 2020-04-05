@@ -217,7 +217,7 @@ void drawRubixCube(RubixCube& cube) {
 void drawSkybox(Skybox& skybox) {
 
 	glPushMatrix();
-		glScalef(100., 100., 100.);
+		glScalef(1000., 1000., 1000.);
 		glEnable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 

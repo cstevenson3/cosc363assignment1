@@ -65,7 +65,7 @@ void initGraphics(int argc, char **argv) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(-0.1, 0.1, -0.1, 0.1, 0.1, 100.0);
+	glFrustum(-0.1, 0.1, -0.1, 0.1, 0.1, 1500.0);
 
 	glutDisplayFunc(display);
 }
