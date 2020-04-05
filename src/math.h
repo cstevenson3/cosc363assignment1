@@ -12,7 +12,7 @@
 
 namespace math {
 	float sin(float degrees);
-	float sinrad(float radians);
+	//float sinrad(float radians);
 	long double sinrad(long double radians);
 	float cos(float degrees);
 	float cosrad(float radians);

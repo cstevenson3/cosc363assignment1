@@ -180,7 +180,7 @@ void drawRubixBlock(RubixBlock& block) {
 }
 
 void drawRubixCube(RubixCube& cube) {
-	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
 	//turning face
 	vector<RubixBlock*> turningBlocks = cube.turningBlocks();
 	Vector3f axis;
@@ -211,7 +211,7 @@ void drawRubixCube(RubixCube& cube) {
 			}
 		}
 	}
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 }
 
 void drawSkybox(Skybox& skybox) {
@@ -293,4 +293,17 @@ void drawSkybox(Skybox& skybox) {
 
 	//reset
 	glDisable(GL_TEXTURE_2D);
+}
+
+void drawSpotlight(Spotlight& spotlight) {
+	float lpos[4] = {0., 0., 0., 1.0};  //spotlight's position
+	float ldiffuse[4] = {1., 1., 1., 1.0};
+	float ldirection[3] = {0., -1., 0.};
+	unsigned int lightID = *(spotlight.lightID());
+	glLightfv(lightID, GL_POSITION, lpos);   //Set spotlight position
+	glLightfv(lightID, GL_DIFFUSE, ldiffuse);   //Set spotlight diffuse
+	glLightfv(lightID, GL_SPECULAR, ldiffuse);   //Set spotlight diffuse
+	glLightfv(lightID, GL_SPOT_DIRECTION, ldirection);
+	glLightf(lightID, GL_SPOT_CUTOFF, 30.0);
+	glLightf(lightID, GL_SPOT_EXPONENT,0.01);
 }

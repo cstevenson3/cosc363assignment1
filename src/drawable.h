@@ -18,9 +18,13 @@ class Drawable {
 		Drawable();
 		virtual inline ~Drawable() = 0;
 		Vector3f* position();
+		Vector3f* rotationAxis();
+		float* rotationAngle();
 	private:
-		bool visible;
+		bool _visible;
 		Vector3f _position;
+		Vector3f _rotationAxis;
+		float _rotationAngle;
 };
 Drawable::~Drawable () {}
 

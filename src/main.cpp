@@ -25,11 +25,13 @@
 #include "double_pendulum.h"
 #include "rubix_cube.h"
 #include "skybox.h"
+#include "spotlight.h"
 
 char* skyboxFilenames[6] = {"textures/wall.tga", "textures/wall.tga", "textures/floor.tga", "textures/floor.tga", "textures/wall.tga", "textures/wall.tga"};
 
 DoublePendulum doublePendulum_;
 RubixCube cube_;
+Spotlight spotlight_;
 
 void keyboardLoggingCallback(int key) {
 	std::cout << "Key: " + std::to_string(key) << std::endl;
@@ -52,7 +54,7 @@ void updateFunction(int te)
 	}
 
 	cube_.update(dt);
-	cube_.turningBlocks();
+	spotlight_.update(dt);
 
 	camera()->update();
 
@@ -75,16 +77,20 @@ int main(int argc, char **argv)
 	Skybox skybox = Skybox(skyboxFilenames);
 	scene()->addDrawable(skybox);
 
+	spotlight_ = Spotlight(GL_LIGHT7);
+	*(spotlight_.position()) = Vector3f(0.0, 3.0, 0.0);
+	scene()->addDrawable(spotlight_);
+
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 
-	//doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
+	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
 	//*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
 	//scene()->addDrawable(doublePendulum_);
 
 	cube_ = RubixCube();
-	*(cube_.position()) = Vector3f(0.0, 2.0, 0.0);
-	scene()->addDrawable(cube_);
+//	*(cube_.position()) = Vector3f(0.0, -1.0, 0.0);
+//	scene()->addDrawable(cube_);
 
 	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);

@@ -12,9 +12,9 @@ float math::sin(float degrees) {
 	return std::sin(degreesToRadians(degrees));
 }
 
-float math::sinrad(float radians) {
-	return std::sin(radians);
-}
+//float math::sinrad(float radians) {
+//	return std::sin(radians);
+//}
 
 long double math::sinrad(long double radians) {
 	return std::sin(radians);

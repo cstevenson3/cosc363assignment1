@@ -8,18 +8,28 @@
 #include "drawable.h"
 
 Drawable::Drawable() {
-	visible = true;
+	_visible = true;
 	_position = Vector3f(0.0, 0.0, 0.0);
+	_rotationAxis = Vector3f(1.0, 0.0, 0.0);
+	_rotationAngle = 0.0;
 }
 
 bool Drawable::isVisible() {
-	return visible;
+	return _visible;
 }
 
 void Drawable::setVisibility(bool visible) {
-	this->visible = visible;
+	this->_visible = visible;
 }
 
 Vector3f* Drawable::position() {
 	return &_position;
+}
+
+Vector3f* Drawable::rotationAxis() {
+	return &_rotationAxis;
+}
+
+float* Drawable::rotationAngle() {
+	return &_rotationAngle;
 }
