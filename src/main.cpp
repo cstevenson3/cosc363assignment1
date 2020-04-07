@@ -26,6 +26,7 @@
 #include "rubix_cube.h"
 #include "skybox.h"
 #include "spotlight.h"
+#include "vase.h"
 
 char* skyboxFilenames[6] = {"textures/wall.tga", "textures/wall.tga", "textures/floor.tga", "textures/floor.tga", "textures/wall.tga", "textures/wall.tga"};
 
@@ -77,6 +78,7 @@ int main(int argc, char **argv)
 	Skybox skybox = Skybox(skyboxFilenames);
 	scene()->addDrawable(skybox);
 
+	//spotlight must go before other scene objects as it has lighting
 	spotlight_ = Spotlight(GL_LIGHT7);
 	*(spotlight_.position()) = Vector3f(0.0, 3.0, 0.0);
 	scene()->addDrawable(spotlight_);
@@ -84,13 +86,16 @@ int main(int argc, char **argv)
 	MuseumWalls museumWalls = MuseumWalls();
 	scene()->addDrawable(museumWalls);
 
+	Vase vase = Vase(16, 16);
+	scene()->addDrawable(vase);
+
 	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
 	//*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
 	//scene()->addDrawable(doublePendulum_);
 
 	cube_ = RubixCube();
-//	*(cube_.position()) = Vector3f(0.0, -1.0, 0.0);
-//	scene()->addDrawable(cube_);
+	//*(cube_.position()) = Vector3f(0.0, -1.0, 0.0);
+	//scene()->addDrawable(cube_);
 
 	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);

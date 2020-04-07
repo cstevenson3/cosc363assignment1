@@ -27,6 +27,8 @@ namespace math {
 
 	float clamp(float val, float lower, float upper);
 	float floatMod(float dividend, float divisor);
+	float max(float a, float b);
+	float exp(float power);
 }
 
 #endif /* SRC_MATH_H_ */

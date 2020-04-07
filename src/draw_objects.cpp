@@ -295,7 +295,59 @@ void drawSkybox(Skybox& skybox) {
 	glDisable(GL_TEXTURE_2D);
 }
 
+void drawSpotlightEnclosure() {
+	// bottom face will be the "source" of the light, with size 1 by 1
+	// top face will be smaller with size (TOP * 2)  by (TOP * 2)
+	float TOP = 0.25;
+
+	glDisable(GL_LIGHTING);
+	glBegin(GL_QUADS);
+		//bottom
+		glColor3f(1., 1., 1.); // white bottom
+		glVertex3f(-0.5, -0.5, -0.5);
+		glVertex3f(0.5, -0.5, -0.5);
+		glVertex3f(0.5, -0.5, 0.5);
+		glVertex3f(-0.5, -0.5, 0.5);
+	glEnd();
+	glEnable(GL_LIGHTING);
+
+	glBegin(GL_QUADS);
+		//top
+		glColor3f(0.5, 0.5, 0.5); // grey for everything else
+		glVertex3f(-TOP, 0.5, -TOP);
+		glVertex3f(-TOP, 0.5, TOP);
+		glVertex3f(TOP, 0.5, TOP);
+		glVertex3f(TOP, 0.5, -TOP);
+
+		//left
+		glVertex3f(-0.5, -0.5, -0.5);
+		glVertex3f(-0.5, -0.5, 0.5);
+		glVertex3f(-TOP, 0.5, TOP);
+		glVertex3f(-TOP, 0.5, -TOP);
+
+		//right
+		glVertex3f(0.5, -0.5, -0.5);
+		glVertex3f(TOP, 0.5, -TOP);
+		glVertex3f(TOP, 0.5, TOP);
+		glVertex3f(0.5, -0.5, 0.5);
+
+		//back
+		glVertex3f(-0.5, -0.5, -0.5);
+		glVertex3f(-TOP, 0.5, -TOP);
+		glVertex3f(TOP, 0.5, -TOP);
+		glVertex3f(0.5, -0.5, -0.5);
+
+		//front
+		glVertex3f(-0.5, -0.5, 0.5);
+		glVertex3f(0.5, -0.5, 0.5);
+		glVertex3f(TOP, 0.5, TOP);
+		glVertex3f(-TOP, 0.5, TOP);
+	glEnd();
+}
+
 void drawSpotlight(Spotlight& spotlight) {
+	drawSpotlightEnclosure();
+
 	float lpos[4] = {0., 0., 0., 1.0};  //spotlight's position
 	float ldiffuse[4] = {1., 1., 1., 1.0};
 	float ldirection[3] = {0., -1., 0.};
@@ -306,4 +358,22 @@ void drawSpotlight(Spotlight& spotlight) {
 	glLightfv(lightID, GL_SPOT_DIRECTION, ldirection);
 	glLightf(lightID, GL_SPOT_CUTOFF, 30.0);
 	glLightf(lightID, GL_SPOT_EXPONENT,0.01);
+}
+
+void drawVase(Vase& vase) {
+	glEnable(GL_LIGHTING);
+	glScalef(1./3., 1./4.5, 1./3.);
+	glTranslatef(0., 1., 0.);
+	vector<vector<int> > quads = *(vase.quads());
+	vector<vector<float> > vertices = *(vase.vertices());
+	glColor3f(0.,1.,0.);
+	glBegin(GL_QUADS);
+		for(int q = 0; q < quads.size(); q++) {
+			for(int v = 0; v < 4; v++) {
+				vector<float> vertex = vertices[quads[q][v]];
+				glVertex3f(vertex[0], vertex[1], vertex[2]);
+			}
+		}
+	glEnd();
+	glDisable(GL_LIGHTING);
 }

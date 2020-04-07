@@ -66,3 +66,14 @@ float math::clamp(float val, float lower, float upper) {
 float math::floatMod(float dividend, float divisor) {
 	return std::fmod(dividend, divisor);
 }
+
+float math::max(float a, float b) {
+	if(a > b) {
+		return a;
+	}
+	return b;
+}
+
+float math::exp(float power) {
+	return std::exp(power);
+}
