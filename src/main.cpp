@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 
 	//spotlight must go before other scene objects as it has lighting
 	spotlight_ = Spotlight(GL_LIGHT7);
-	*(spotlight_.position()) = Vector3f(0.0, 4.0, 0.0);
+	*(spotlight_.position()) = Vector3f(0.0, 5.0, 0.0);
 	scene()->addDrawable(spotlight_);
 
 	Museum museum = Museum();
@@ -87,7 +87,9 @@ int main(int argc, char **argv)
 	scene()->addDrawable(vase);
 
 	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
-	*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
+	*(doublePendulum_.position()) = Vector3f(4.0, 1.8, 0.0);
+	*(doublePendulum_.rotationAxis()) = Vector3f(0.0, 1.0, 0.0);
+	*(doublePendulum_.rotationAngle()) = 90.;
 	scene()->addDrawable(doublePendulum_);
 
 	cube_ = RubixCube();
