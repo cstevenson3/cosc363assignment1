@@ -12,6 +12,7 @@ Drawable::Drawable() {
 	_position = Vector3f(0.0, 0.0, 0.0);
 	_rotationAxis = Vector3f(1.0, 0.0, 0.0);
 	_rotationAngle = 0.0;
+	_scale = 1.0;
 }
 
 bool Drawable::isVisible() {
@@ -32,4 +33,8 @@ Vector3f* Drawable::rotationAxis() {
 
 float* Drawable::rotationAngle() {
 	return &_rotationAngle;
+}
+
+float* Drawable::scale() {
+	return &_scale;
 }

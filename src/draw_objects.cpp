@@ -33,7 +33,7 @@ void drawRoofSection(float height, float radius, float outerWidth, float wallThi
 	glEnd();
 }
 
-void drawMuseumWalls(float numWalls, float radius, float height, float thickness, Vector3f color) {
+void drawMuseum(float numWalls, float radius, float height, float thickness, Vector3f color) {
 	float angle = (360.0 / numWalls);
 	for(int i = 1; i < numWalls; i++) {
 		float rotation = angle * i;
@@ -118,12 +118,13 @@ void drawRubixBlock(RubixBlock& block) {
 					colors[j] = Vector3f(0., 0., 0.);
 				}
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				glLineWidth(5.);
+				glLineWidth(1.);
 			}
 			Vector3f color;
 			glBegin(GL_QUADS);
 				//left
 				color = colors[0];
+				glNormal3f(-1., 0., 0.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(-0.5, -0.5, -0.5);
 				glVertex3f(-0.5, -0.5, 0.5);
@@ -132,6 +133,7 @@ void drawRubixBlock(RubixBlock& block) {
 
 				//right
 				color = colors[1];
+				glNormal3f(1., 0., 0.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(0.5, -0.5, -0.5);
 				glVertex3f(0.5, 0.5, -0.5);
@@ -140,6 +142,7 @@ void drawRubixBlock(RubixBlock& block) {
 
 				//bottom
 				color = colors[2];
+				glNormal3f(0., -1., 0.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(-0.5, -0.5, -0.5);
 				glVertex3f(0.5, -0.5, -0.5);
@@ -148,6 +151,7 @@ void drawRubixBlock(RubixBlock& block) {
 
 				//top
 				color = colors[3];
+				glNormal3f(0., 1., 0.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(-0.5, 0.5, -0.5);
 				glVertex3f(-0.5, 0.5, 0.5);
@@ -156,6 +160,7 @@ void drawRubixBlock(RubixBlock& block) {
 
 				//back
 				color = colors[4];
+				glNormal3f(0., 0., -1.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(-0.5, -0.5, -0.5);
 				glVertex3f(-0.5, 0.5, -0.5);
@@ -164,6 +169,7 @@ void drawRubixBlock(RubixBlock& block) {
 
 				//front
 				color = colors[5];
+				glNormal3f(0., 0., 1.);
 				glColor3f(color[0], color[1], color[2]);
 				glVertex3f(-0.5, -0.5, 0.5);
 				glVertex3f(0.5, -0.5, 0.5);
@@ -180,38 +186,39 @@ void drawRubixBlock(RubixBlock& block) {
 }
 
 void drawRubixCube(RubixCube& cube) {
-	//glDisable(GL_LIGHTING);
-	//turning face
-	vector<RubixBlock*> turningBlocks = cube.turningBlocks();
-	Vector3f axis;
-	float direction = *(cube.currentTurn()->direction()) == RubixTurn::DIRECTION::CC ? 1. : -1.;
-	float angle = direction * 90.0 * *(cube.currentTurn()->progress());
-	switch(*(cube.currentTurn()->axis())) {
-	case RubixTurn::AXIS::X:
-		axis = Vector3f(1., 0., 0.);
-		break;
-	case RubixTurn::AXIS::Y:
-		axis = Vector3f(0., 1., 0.);
-		break;
-	case RubixTurn::AXIS::Z:
-		axis = Vector3f(0., 0., 1.);
-		break;
-	}
-	for(int x = -1; x < 2; x++) {
-		for(int y = -1; y < 2; y++) {
-			for(int z = -1; z < 2; z++) {
-				if(std::find(turningBlocks.begin(), turningBlocks.end(), cube.block(x, y, z)) != turningBlocks.end()){
-					glPushMatrix();
-						glRotatef(angle, axis[0], axis[1], axis[2]);
+	glPushMatrix();
+		glScalef(1./3., 1./3., 1./3.); // cube is initially drawn with size 3 for convenience
+		//turning face
+		vector<RubixBlock*> turningBlocks = cube.turningBlocks();
+		Vector3f axis;
+		float direction = *(cube.currentTurn()->direction()) == RubixTurn::DIRECTION::CC ? 1. : -1.;
+		float angle = direction * 90.0 * *(cube.currentTurn()->progress());
+		switch(*(cube.currentTurn()->axis())) {
+		case RubixTurn::AXIS::X:
+			axis = Vector3f(1., 0., 0.);
+			break;
+		case RubixTurn::AXIS::Y:
+			axis = Vector3f(0., 1., 0.);
+			break;
+		case RubixTurn::AXIS::Z:
+			axis = Vector3f(0., 0., 1.);
+			break;
+		}
+		for(int x = -1; x < 2; x++) {
+			for(int y = -1; y < 2; y++) {
+				for(int z = -1; z < 2; z++) {
+					if(std::find(turningBlocks.begin(), turningBlocks.end(), cube.block(x, y, z)) != turningBlocks.end()){
+						glPushMatrix();
+							glRotatef(angle, axis[0], axis[1], axis[2]);
+							drawRubixBlock(*(cube.block(x, y, z)));
+						glPopMatrix();
+					} else {
 						drawRubixBlock(*(cube.block(x, y, z)));
-					glPopMatrix();
-				} else {
-					drawRubixBlock(*(cube.block(x, y, z)));
+					}
 				}
 			}
 		}
-	}
-	//glEnable(GL_LIGHTING);
+	glPopMatrix();
 }
 
 void drawSkybox(Skybox& skybox) {

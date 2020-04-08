@@ -39,11 +39,6 @@ void display(void)
 	glEnable(GL_DEPTH_TEST);
 
     scene_.draw();
-    glColor3f(0.0, 1.0, 1.0);
-    glPushMatrix();
-    	glTranslatef(0.,-3.,0.);
-    	glutSolidTeapot(1.0);
-    glPopMatrix();
 
 	glFlush();
 }
@@ -60,8 +55,8 @@ void initGraphics(int argc, char **argv) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);

@@ -21,6 +21,7 @@ void Scene::draw() {
 			glPushMatrix();
 				glTranslatef((*(drawable->position()))[0], (*(drawable->position()))[1], (*(drawable->position()))[2]);
 				glRotatef((*(drawable->rotationAngle())), (*(drawable->rotationAxis()))[0], (*(drawable->rotationAxis()))[1], (*(drawable->rotationAxis()))[2]);
+				glScalef(*(drawable->scale()), *(drawable->scale()), *(drawable->scale()));
 				drawable->draw();
 			glPopMatrix();
 		}

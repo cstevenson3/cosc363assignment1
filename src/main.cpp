@@ -20,7 +20,7 @@
 #include "our_time.h"
 
 //objects
-#include "museum_walls.h"
+#include "museum.h"
 #include "floor_wireframe.h"
 #include "double_pendulum.h"
 #include "rubix_cube.h"
@@ -33,10 +33,6 @@ char* skyboxFilenames[6] = {"textures/wall.tga", "textures/wall.tga", "textures/
 DoublePendulum doublePendulum_;
 RubixCube cube_;
 Spotlight spotlight_;
-
-void keyboardLoggingCallback(int key) {
-	std::cout << "Key: " + std::to_string(key) << std::endl;
-}
 
 long int lastTime;
 
@@ -70,7 +66,6 @@ int main(int argc, char **argv)
 	camera()->setMode(Camera::DOOM);
 	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
-	//addKeyboardCallback(keyboardLoggingCallback);
 
 	FloorWireframe floorWireframe = FloorWireframe();
 	scene()->addDrawable(floorWireframe);
@@ -83,20 +78,24 @@ int main(int argc, char **argv)
 	*(spotlight_.position()) = Vector3f(0.0, 4.0, 0.0);
 	scene()->addDrawable(spotlight_);
 
-	MuseumWalls museumWalls = MuseumWalls();
-	scene()->addDrawable(museumWalls);
+	Museum museum = Museum();
+	scene()->addDrawable(museum);
 
 	Vase vase = Vase();
-	*(vase.position()) = Vector3f(1.0, 0.0, 0.0);
+	*(vase.position()) = Vector3f(-4.0, 0.0, 0.0);
+	*(vase.scale()) = 1.5;
 	scene()->addDrawable(vase);
 
 	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
-	//*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
-	//scene()->addDrawable(doublePendulum_);
+	*(doublePendulum_.position()) = Vector3f(0.0, 5.0, 0.0);
+	scene()->addDrawable(doublePendulum_);
 
 	cube_ = RubixCube();
-	*(cube_.position()) = Vector3f(-0.5, 0.0, 0.0);
-	//scene()->addDrawable(cube_);
+	*(cube_.position()) = Vector3f(0.0, 1.0, -4.0);
+	*(cube_.scale()) = 0.85;
+	*(cube_.rotationAxis()) = Vector3f(0., 1., 0.);
+	*(cube_.rotationAngle()) = 45.;
+	scene()->addDrawable(cube_);
 
 	lastTime = our_time::unixTimeMS();
 	glutTimerFunc(10, updateFunction, 1);

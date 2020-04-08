@@ -20,11 +20,13 @@ class Drawable {
 		Vector3f* position();
 		Vector3f* rotationAxis();
 		float* rotationAngle();
+		float* scale();
 	private:
 		bool _visible;
 		Vector3f _position;
 		Vector3f _rotationAxis;
 		float _rotationAngle;
+		float _scale;
 };
 Drawable::~Drawable () {}
 
