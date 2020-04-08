@@ -40,7 +40,10 @@ void display(void)
 
     scene_.draw();
     glColor3f(0.0, 1.0, 1.0);
-    //glutSolidTeapot(1.0);
+    glPushMatrix();
+    	glTranslatef(0.,-3.,0.);
+    	glutSolidTeapot(1.0);
+    glPopMatrix();
 
 	glFlush();
 }

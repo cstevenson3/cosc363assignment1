@@ -361,19 +361,17 @@ void drawSpotlight(Spotlight& spotlight) {
 }
 
 void drawVase(Vase& vase) {
-	glEnable(GL_LIGHTING);
 	glScalef(1./3., 1./4.5, 1./3.);
 	glTranslatef(0., 1., 0.);
-	vector<vector<int> > quads = *(vase.quads());
+	vector<vector<int> > tris = *(vase.tris());
 	vector<vector<float> > vertices = *(vase.vertices());
 	glColor3f(0.,1.,0.);
-	glBegin(GL_QUADS);
-		for(int q = 0; q < quads.size(); q++) {
-			for(int v = 0; v < 4; v++) {
-				vector<float> vertex = vertices[quads[q][v]];
+	glBegin(GL_TRIANGLES);
+		for(int q = 0; q < tris.size(); q++) {
+			for(int v = 0; v < 3; v++) {
+				vector<float> vertex = vertices[tris[q][v]];
 				glVertex3f(vertex[0], vertex[1], vertex[2]);
 			}
 		}
 	glEnd();
-	glDisable(GL_LIGHTING);
 }

@@ -7,6 +7,8 @@
 
 #include "scene.h"
 
+#include <iostream>
+
 #include <GL/freeglut.h>
 
 Scene::Scene() {

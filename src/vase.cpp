@@ -11,7 +11,7 @@
 #include "math.h"
 
 Vase::Vase(int radialSubdivisions, int verticalSubdivisions) {
-	_quads = vector<vector<int> >();
+	_tris = vector<vector<int> >();
 	_vertices = vector<vector<float> >();
 	float verticalSegmentSize = 4.5 / verticalSubdivisions;
 	float radialSegmentSize = 2. * PI / radialSubdivisions;
@@ -32,18 +32,23 @@ Vase::Vase(int radialSubdivisions, int verticalSubdivisions) {
 
 	for(int v = 0; v < verticalSubdivisions; v++) {
 		for(int r = 0; r < radialSubdivisions; r++) {
-			vector<int> quad = vector<int>(4);
-			quad[0] = v * radialSubdivisions + r;
-			quad[1] = v * radialSubdivisions + (r + 1) % radialSubdivisions;
-			quad[2] = (v + 1) * radialSubdivisions + (r + 1) % radialSubdivisions;
-			quad[3] = (v + 1) * radialSubdivisions + r;
-			_quads.push_back(quad);
+			vector<int> tri1 = vector<int>(3);
+			tri1[0] = v * radialSubdivisions + r; //bottom left
+			tri1[1] = v * radialSubdivisions + (r + 1) % radialSubdivisions; //bottom right
+			tri1[2] = (v + 1) * radialSubdivisions + r; //top left
+			vector<int> tri2 = vector<int>(3);
+			tri2[0] = v * radialSubdivisions + (r + 1) % radialSubdivisions; //bottom right
+			tri2[1] = (v + 1) * radialSubdivisions + (r + 1) % radialSubdivisions; //top right
+			tri2[2] = (v + 1) * radialSubdivisions + r; //top left
+
+			_tris.push_back(tri1);
+			_tris.push_back(tri2);
 		}
 	}
 }
 
-vector<vector<int> >* Vase::quads() {
-	return &_quads;
+vector<vector<int> >* Vase::tris() {
+	return &_tris;
 }
 
 vector<vector<float> >* Vase::vertices() {

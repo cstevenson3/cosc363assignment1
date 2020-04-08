@@ -19,10 +19,10 @@ class Vase : public Drawable {
 		Vase(int radialSubdivisions, int verticalSubdivisions);
 		Vase() : Vase(16, 16) {};
 		void draw();
-		vector<vector<int> >* quads();
+		vector<vector<int> >* tris();
 		vector<vector<float> >* vertices();
 	private:
-		vector<vector<int> > _quads;
+		vector<vector<int> > _tris;
 		vector<vector<float> > _vertices;
 };
 
