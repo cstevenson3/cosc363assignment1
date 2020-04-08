@@ -23,9 +23,11 @@ class Vector3f {
 		float f2() const;
 		float f3() const;
 		Vector3f operator + (const Vector3f& right);
+		Vector3f operator - (const Vector3f& right);
 		Vector3f& operator += (const Vector3f& right);
 		friend std::ostream& operator<<(std::ostream &str, const Vector3f& v);
-		float& operator[](int index);
+		float operator[](int index) const;
+		static Vector3f cross(const Vector3f& left, const Vector3f& right);
 	private:
 		float _vec[3];
 };

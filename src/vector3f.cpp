@@ -37,6 +37,11 @@ Vector3f Vector3f::operator + (const Vector3f &right) {
 	return result;
 }
 
+Vector3f Vector3f::operator - (const Vector3f &right) {
+	Vector3f result = Vector3f(_vec[0] - right.f1(), _vec[1] - right.f2(), _vec[2] - right.f3());
+	return result;
+}
+
 Vector3f& Vector3f::operator += (const Vector3f &right) {
 	*this = *this + right;
 	return *this;
@@ -60,6 +65,10 @@ std::ostream& operator<<(std::ostream &str, const Vector3f& v) {
 	   + ", f3: " + std::to_string(v.f3());
 }
 
-float& Vector3f::operator[](int index) {
+float Vector3f::operator[](int index) const {
 	return _vec[index];
+}
+
+Vector3f Vector3f::cross(const Vector3f& left, const Vector3f& right) {
+	return Vector3f(left[1] * right[2] - left[2] * right[1], left[2] * right[0] - left[0] * right[2], left[0] * right[1] - left[1] * right[0]);
 }

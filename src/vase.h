@@ -20,10 +20,12 @@ class Vase : public Drawable {
 		Vase() : Vase(16, 16) {};
 		void draw();
 		vector<vector<int> >* tris();
-		vector<vector<float> >* vertices();
+		vector<Vector3f >* vertices();
+		vector<Vector3f >* normals();
 	private:
 		vector<vector<int> > _tris;
-		vector<vector<float> > _vertices;
+		vector<Vector3f > _vertices;
+		vector<Vector3f > _normals;
 };
 
 

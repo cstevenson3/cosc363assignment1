@@ -364,12 +364,15 @@ void drawVase(Vase& vase) {
 	glScalef(1./3., 1./4.5, 1./3.);
 	glTranslatef(0., 1., 0.);
 	vector<vector<int> > tris = *(vase.tris());
-	vector<vector<float> > vertices = *(vase.vertices());
+	vector<Vector3f > vertices = *(vase.vertices());
+	vector<Vector3f > normals = *(vase.normals());
 	glColor3f(0.,1.,0.);
 	glBegin(GL_TRIANGLES);
 		for(int q = 0; q < tris.size(); q++) {
+			Vector3f normal = normals[q];
 			for(int v = 0; v < 3; v++) {
-				vector<float> vertex = vertices[tris[q][v]];
+				Vector3f vertex = vertices[tris[q][v]];
+				glNormal3f(normal[0], normal[1], normal[2]);
 				glVertex3f(vertex[0], vertex[1], vertex[2]);
 			}
 		}

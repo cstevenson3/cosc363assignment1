@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 	scene()->addDrawable(museumWalls);
 
 	Vase vase = Vase();
-	*(vase.position()) = Vector3f(0.0, 0.0, 0.0);
+	*(vase.position()) = Vector3f(1.0, 0.0, 0.0);
 	scene()->addDrawable(vase);
 
 	doublePendulum_ = DoublePendulum(Vector3f(0.5,0.5,0.5), Vector3f(0.8, 0.0, 0.0), 9.81, 0.5, 0.6, 0.5, 1., 270, 170);
