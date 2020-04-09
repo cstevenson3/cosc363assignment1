@@ -22,19 +22,25 @@ void drawWall(Vector3f dimensions, Vector3f color) {
 	glPopMatrix();
 }
 
-void drawRoofSection(float height, float radius, float outerWidth, float wallThickness, Vector3f color) {
+void drawRoofSection(float height, float radius, float outerWidth, float wallThickness, GLuint textureID) {
 	Vector3f apex = Vector3f(0, height, 0);
 	Vector3f leftOuter = Vector3f(-outerWidth / 2, 0, radius);
 	Vector3f rightOuter = Vector3f(outerWidth / 2, 0, radius);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBegin(GL_TRIANGLES);
 		//outer roof
+		glTexCoord2f(0.5, 0.);
 		glVertex3f(apex[0], apex[1], apex[2]);
+		glTexCoord2f(0., 1.);
 		glVertex3f(leftOuter[0], leftOuter[1], leftOuter[2]);
+		glTexCoord2f(1., 1.);
 		glVertex3f(rightOuter[0], rightOuter[1], rightOuter[2]);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
-void drawMuseum(float numWalls, float radius, float height, float thickness, Vector3f color) {
+void drawMuseum(Museum& museum, float numWalls, float radius, float height, float thickness, Vector3f color) {
 	float angle = (360.0 / numWalls);
 	for(int i = 1; i < numWalls; i++) {
 		float rotation = angle * i;
@@ -47,7 +53,7 @@ void drawMuseum(float numWalls, float radius, float height, float thickness, Vec
 			glPopMatrix();
 			glPushMatrix();
 				glTranslatef(0.0, height, 0);
-				drawRoofSection(height, radius, outerWidth, thickness, color);
+				drawRoofSection(height, radius, outerWidth, thickness, *(museum.roofTextureID()));
 			glPopMatrix();
 		glPopMatrix();
 	}

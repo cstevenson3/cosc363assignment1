@@ -30,7 +30,8 @@
 #include "vase.h"
 
 char* skyboxFilenames[6] = {"textures/yokohama/negx.tga", "textures/yokohama/posx.tga", "textures/yokohama/negy.tga", "textures/yokohama/posy.tga", "textures/yokohama/negz.tga", "textures/yokohama/posz.tga"};
-char* floorFilename = "textures/floor.tga";
+char* floorTextureFilename = "textures/floor.tga";
+char* museumRoofTextureFilename = "textures/tile.tga";
 
 DoublePendulum doublePendulum_;
 RubixCube cube_;
@@ -69,7 +70,7 @@ int main(int argc, char **argv)
 	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
 
-	FloorSolid floorSolid = FloorSolid(floorFilename);
+	FloorSolid floorSolid = FloorSolid(floorTextureFilename);
 	scene()->addDrawable(floorSolid);
 
 	Skybox skybox = Skybox(skyboxFilenames);
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
 	*(spotlight_.position()) = Vector3f(0.0, 5.0, 0.0);
 	scene()->addDrawable(spotlight_);
 
-	Museum museum = Museum();
+	Museum museum = Museum(museumRoofTextureFilename);
 	scene()->addDrawable(museum);
 
 	Vase vase = Vase();
