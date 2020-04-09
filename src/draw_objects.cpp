@@ -82,11 +82,11 @@ void drawFloorSolid(FloorSolid& floor) {
 				glNormal3f(0., 1., 0.);
 				glTexCoord2f(x, z);
 				glVertex3f(x, 0., z);
-				glTexCoord2f(x + res, z);
+				glTexCoord2f(x, z + res);
 				glVertex3f(x, 0., z + res);
 				glTexCoord2f(x + res, z + res);
 				glVertex3f(x + res, 0., z + res);
-				glTexCoord2f(x, z + res);
+				glTexCoord2f(x + res, z);
 				glVertex3f(x + res, 0., z);
 			glEnd();
 		}
