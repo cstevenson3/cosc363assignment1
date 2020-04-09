@@ -60,6 +60,7 @@ void initGraphics(int argc, char **argv) {
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

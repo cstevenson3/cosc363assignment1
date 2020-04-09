@@ -22,6 +22,7 @@
 //objects
 #include "museum.h"
 #include "floor_wireframe.h"
+#include "floor_solid.h"
 #include "double_pendulum.h"
 #include "rubix_cube.h"
 #include "skybox.h"
@@ -53,7 +54,7 @@ void updateFunction(int te)
 	cube_.update(dt);
 	spotlight_.update(dt);
 
-	camera()->update();
+	camera()->update(dt);
 
 	glutPostRedisplay();
 	glutTimerFunc(10, updateFunction, 1);
@@ -67,8 +68,8 @@ int main(int argc, char **argv)
 	camera()->deltaPosition(Vector3f(0, 1.8, 12));
 	initKeyboard();
 
-	FloorWireframe floorWireframe = FloorWireframe();
-	scene()->addDrawable(floorWireframe);
+	FloorSolid floorSolid = FloorSolid();
+	scene()->addDrawable(floorSolid);
 
 	Skybox skybox = Skybox(skyboxFilenames);
 	scene()->addDrawable(skybox);

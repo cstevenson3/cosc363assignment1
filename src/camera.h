@@ -34,7 +34,7 @@ class Camera {
 		Vector3f lookAtUp();
 
 		/* consider keys pressed etc. and update position, rotation etc. */
-		void update();
+		void update(float dt);
 
 		Vector3f freecamMotionWorldspace(Vector3f motionViewspace);
 		Matrix4f freecamMotionTransform();
@@ -43,8 +43,6 @@ class Camera {
 
 		Vector3f pos;
 		Vector3f rot;
-
-		long int lastTime;
 };
 
 #endif /* SRC_CAMERA_H_ */

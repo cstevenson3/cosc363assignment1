@@ -13,13 +13,11 @@
 #include "vector4f.h"
 
 Camera::Camera () {
-	this->_mode = Camera::FREECAM;
-	lastTime = our_time::unixTimeMS();
+	this->_mode = Camera::DOOM;
 }
 
 Camera::Camera (MODE mode) {
 	this->_mode = mode;
-	lastTime = our_time::unixTimeMS();
 }
 
 Camera::MODE Camera::mode() {
@@ -54,22 +52,21 @@ Vector3f Camera::lookAtUp() {
 	return Vector3f(0, 1, 0); // TODO if pitch is introduced
 }
 
-void Camera::update() {
-	long int currentTime = our_time::unixTimeMS();
+void Camera::update(float dt) {
 	switch(_mode) {
 	case DOOM:
 		if(isKeyDown(KEY_UP)) {
-			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, 0.05)));
+			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, 3. * dt)));
 		}
 		if(isKeyDown(KEY_DOWN)) {
-			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, -0.05)));
+			deltaPosition(freecamMotionWorldspace(Vector3f(0, 0, -3. * dt)));
 		}
 
 		if(isKeyDown(KEY_LEFT)) {
-			deltaRotation(Vector3f(0, 2, 0));
+			deltaRotation(Vector3f(0, 180. * dt, 0));
 		}
 		if(isKeyDown(KEY_RIGHT)) {
-			deltaRotation(Vector3f(0, -2, 0));
+			deltaRotation(Vector3f(0, -180. * dt, 0));
 		}
 	}
 }

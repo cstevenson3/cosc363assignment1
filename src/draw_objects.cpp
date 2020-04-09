@@ -68,6 +68,23 @@ void drawFloorWireframe() {
 	glEnable(GL_LIGHTING);
 }
 
+void drawFloorSolid() {
+	glColor3f(0.5, 0.5,  0.5);
+	float res = 0.2;
+	float size = 20;
+	for(float x = -size; x < size; x += res) {
+		for(float z = -size; z < size; z += res) {
+			glBegin(GL_QUADS);
+				glNormal3f(0., 1., 0.);
+				glVertex3f(x, 0., z);
+				glVertex3f(x, 0., z + res);
+				glVertex3f(x + res, 0., z + res);
+				glVertex3f(x + res, 0., z);
+			glEnd();
+		}
+	}
+}
+
 void drawPendulum(float length, Vector3f armColor, Vector3f ballColor) {
 	//arm
 	glColor3f(armColor.f1(), armColor.f2(), armColor.f3());
@@ -353,6 +370,8 @@ void drawSpotlightEnclosure() {
 }
 
 void drawSpotlight(Spotlight& spotlight) {
+	float angle = 20.0;
+
 	drawSpotlightEnclosure();
 
 	float lpos[4] = {0., 0., 0., 1.0};  //spotlight's position
@@ -363,7 +382,7 @@ void drawSpotlight(Spotlight& spotlight) {
 	glLightfv(lightID, GL_DIFFUSE, ldiffuse);   //Set spotlight diffuse
 	glLightfv(lightID, GL_SPECULAR, ldiffuse);   //Set spotlight diffuse
 	glLightfv(lightID, GL_SPOT_DIRECTION, ldirection);
-	glLightf(lightID, GL_SPOT_CUTOFF, 30.0);
+	glLightf(lightID, GL_SPOT_CUTOFF, angle);
 	glLightf(lightID, GL_SPOT_EXPONENT,0.01);
 }
 

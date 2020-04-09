@@ -15,6 +15,7 @@
 #include "vase.h"
 
 void drawDoublePendulum(float angle1, float angle2, float length1, float length2, Vector3f armColor, Vector3f ballColor);
+void drawFloorSolid();
 void drawFloorWireframe();
 void drawMuseum(float numWalls, float radius, float height, float thickness, Vector3f color);
 void drawPendulum(float length, Vector3f armColor, Vector3f ballColor);
