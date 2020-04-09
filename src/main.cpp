@@ -29,7 +29,7 @@
 #include "spotlight.h"
 #include "vase.h"
 
-char* skyboxFilenames[6] = {"textures/wall.tga", "textures/wall.tga", "textures/floor.tga", "textures/floor.tga", "textures/wall.tga", "textures/wall.tga"};
+char* skyboxFilenames[6] = {"textures/yokohama/negx.tga", "textures/yokohama/posx.tga", "textures/yokohama/negy.tga", "textures/yokohama/posy.tga", "textures/yokohama/negz.tga", "textures/yokohama/posz.tga"};
 
 DoublePendulum doublePendulum_;
 RubixCube cube_;
