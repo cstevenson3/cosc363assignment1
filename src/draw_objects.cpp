@@ -12,6 +12,7 @@
 
 #include "math.h"
 #include "vector3f.h"
+#include "floor_solid.h"
 
 void drawWall(Vector3f dimensions, Vector3f color) {
 	glColor3f(color.f1(), color.f2(), color.f3());
@@ -68,21 +69,30 @@ void drawFloorWireframe() {
 	glEnable(GL_LIGHTING);
 }
 
-void drawFloorSolid() {
-	glColor3f(0.5, 0.5,  0.5);
+void drawFloorSolid(FloorSolid& floor) {
+	glColor3f(0.5, 0.5, 0.5);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, *(floor.textureID()));
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	float res = 0.2;
 	float size = 20;
 	for(float x = -size; x < size; x += res) {
 		for(float z = -size; z < size; z += res) {
 			glBegin(GL_QUADS);
 				glNormal3f(0., 1., 0.);
+				glTexCoord2f(x, z);
 				glVertex3f(x, 0., z);
+				glTexCoord2f(x + res, z);
 				glVertex3f(x, 0., z + res);
+				glTexCoord2f(x + res, z + res);
 				glVertex3f(x + res, 0., z + res);
+				glTexCoord2f(x, z + res);
 				glVertex3f(x + res, 0., z);
 			glEnd();
 		}
 	}
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void drawPendulum(float length, Vector3f armColor, Vector3f ballColor) {

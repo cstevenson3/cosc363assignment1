@@ -12,6 +12,11 @@
 
 Spotlight::Spotlight(unsigned int lightID) {
 	glEnable(lightID);
+	float black[4] = {0.0, 0.0, 0.0, 1.0};
+	float white[4]  = {1.0, 1.0, 1.0, 1.0};
+	glLightfv(lightID, GL_AMBIENT, black);
+	glLightfv(lightID, GL_DIFFUSE, white);
+	glLightfv(lightID, GL_SPECULAR, white);
 	_lightID = lightID;
 	_phase = 0.0;
 	*(rotationAxis()) = Vector3f(0.0, 0.0, 1.0);
