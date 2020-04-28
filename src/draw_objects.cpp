@@ -8,6 +8,7 @@
 #include "draw_objects.h"
 
 #include <iostream>
+#include <algorithm>
 #include <GL/freeglut.h>
 
 #include "math.h"

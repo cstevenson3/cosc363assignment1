@@ -5,8 +5,14 @@ ifeq ($(OS),Windows_NT)
 	MAKE_COMMAND += mingw32-make
 	MAKEFILE_NAME += MakefileWindows
 else
-	MAKE_COMMAND += make
-	MAKEFILE_NAME += MakefileUnix
+    UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+        MAKE_COMMAND += make
+	    MAKEFILE_NAME += MakefileMac
+    else
+        MAKE_COMMAND += make
+	    MAKEFILE_NAME += MakefileUnix
+	endif
 endif
 
 dummy.recipe:
