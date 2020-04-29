@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	Museum museum = Museum(museumRoofTextureFilename);
 	scene()->addDrawable(museum);
 
-	Vase vase = Vase();
+	Vase vase = Vase(32, 32);
 	*(vase.position()) = Vector3f(-4.0, 0.0, 0.0);
 	*(vase.scale()) = 1.5;
 	scene()->addDrawable(vase);
